@@ -47,10 +47,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String resetPasswordLink(String email, String urlToken) throws MessagingException {
+    public String resetPasswordLink(String email) throws MessagingException {
         UserDetailsModel user = userDetailsRepository.findByEmail(email).orElseThrow(() -> new UserException("Email Not Found", UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
-        urlToken = "Click on below link to Reset your Password \n"
+        String urlToken = "Click on below link to Reset your Password \n"
                 + "http://localhost:8080/swagger-ui.html#!/user-controller/reset/Password/" + "\n token:" + tokenGenerate;
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";

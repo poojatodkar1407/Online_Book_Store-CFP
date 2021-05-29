@@ -38,16 +38,23 @@ public class UserController {
     }
 
     @PostMapping("/forget/password")
-    public ResponseEntity getResetPassword(@RequestParam("emailID") String emailID, HttpServletRequest httpServletRequest) throws MessagingException {
-        String resetPassword = userService.resetPasswordLink(emailID,httpServletRequest.getRequestURL().toString());
+    public ResponseEntity<ResponseDto> getResetPassword(@RequestParam("emailID") String emailID) throws MessagingException {
+        String link = userService.resetPasswordLink(emailID);
+        ResponseDto response = new ResponseDto(link);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/reset/password/")
+    public ResponseEntity<ResponseDto> resetPassword(@RequestParam(name = "password") String password,@RequestParam(value = "token",defaultValue = "") String urlToken){
+        String resetPassword = userService.resetPassword(password,urlToken);
         ResponseDto response = new ResponseDto(resetPassword);
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
-    @PostMapping("/reset/password/")
-    public ResponseEntity resetPassword(@RequestParam(name = "password") String password,@RequestParam(value = "token",defaultValue = "") String urlToken){
-        String resetPassword = userService.resetPassword(password,urlToken);
-        ResponseDto response = new ResponseDto(resetPassword);
-        return new ResponseEntity(response,HttpStatus.OK);
+    @PostMapping("/resend/mail")
+    public ResponseEntity<ResponseDto> resendMail(@RequestParam("emailID") String emailID) throws MessagingException {
+        String link = userService.resetPasswordLink(emailID);
+        ResponseDto response = new ResponseDto(link);
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 }
