@@ -13,7 +13,6 @@ public class UserLoginDto {
     @NotEmpty(message = "Please Do Enter email id!")
     public String emailID;
 
-    @JsonIgnore
     @Pattern(regexp = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$",
             message = "please enter correct password")
     @NotNull(message = "Please Do Enter Password!")

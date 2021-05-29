@@ -6,7 +6,6 @@ import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.bridgelabz.onlinebookstore.repository.UserDetailsRepository;
 import com.bridgelabz.onlinebookstore.utils.MailService;
 import com.bridgelabz.onlinebookstore.utils.Token;
-import org.aspectj.weaver.patterns.IToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,10 @@ public class UserService implements IUserService {
     @Autowired
     HttpServletRequest httpServletRequest;
 
-
+    @Autowired
     Token jwtToken;
 
+    @Autowired
     MailService mailService;
 
     @Override
@@ -57,6 +57,7 @@ public class UserService implements IUserService {
     }
     @Override
     public String resetPassword(String password, String urlToken) {
+        System.out.println(urlToken);
         UUID userId = jwtToken.decodeJWT(urlToken);
         UserDetailsModel userDetails = userDetailsRepository.findById(userId).orElseThrow(() -> new UserException("User Not Found", UserException.ExceptionType.INVALID_DATA));
         String encodePassword = bCryptPasswordEncoder.encode(password);

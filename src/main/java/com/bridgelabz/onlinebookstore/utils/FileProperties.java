@@ -1,8 +1,11 @@
 package com.bridgelabz.onlinebookstore.utils;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@EnableConfigurationProperties
+@Component
+@ConfigurationProperties(prefix = "app")
     public class FileProperties {
         private String uploadDir;
         private String jwtSecret;
