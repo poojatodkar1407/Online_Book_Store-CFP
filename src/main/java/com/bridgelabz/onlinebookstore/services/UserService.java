@@ -38,11 +38,11 @@ public class UserService implements IUserService {
         Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.emailID);
         if (userDetailsByEmail.isPresent()) {
             if(userDetailsByEmail.get().isVerified){
-            boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
-            if (password) {
-                String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
+                boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
+                if (password) {
+                    String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
                     return tokenString;
-            }
+                }
                 throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
             }
             throw new UserException("Please verify your email before proceeding", UserException.ExceptionType.EMAIL_NOT_FOUND);
