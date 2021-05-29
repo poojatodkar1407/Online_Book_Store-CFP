@@ -1,6 +1,8 @@
 package com.bridgelabz.onlinebookstore.utils;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 @EnableConfigurationProperties
     public class FileProperties {

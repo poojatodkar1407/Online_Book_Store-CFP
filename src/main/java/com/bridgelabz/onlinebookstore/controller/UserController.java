@@ -35,17 +35,13 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity registerUser(@RequestBody @Valid UserDetailsDto userDetails,
-                                                    BindingResult bindingResult){
+    public ResponseEntity registerUser(@RequestBody @Valid UserDetailsDto userDetails, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
                     getDefaultMessage(),"100",null),
                     HttpStatus.BAD_REQUEST);
         }
-
         UserDetailsModel userDetailsModel = userService.addUser(userDetails);
-
-
         return new ResponseEntity (new ResponseDto("User added succesfully : ",
                 "200",userDetailsModel),
                 HttpStatus.CREATED);
@@ -58,9 +54,9 @@ public class UserController {
         userService.verifyEmail(tokenId);
         return new ResponseEntity ("EMAIL VERIFIED",HttpStatus.OK);
 
+
+
     }
-
-
 
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
@@ -81,8 +77,7 @@ public class UserController {
 
     @PostMapping("/reset/password/")
     public ResponseEntity<ResponseDto> resetPassword(@RequestParam(name = "password") String password,@RequestParam(value = "token",defaultValue = "") String urlToken){
-        UUID userId = jwtToken.decodeJWT(urlToken);
-        String resetPassword = userService.resetPassword(password,userId);
+        String resetPassword = userService.resetPassword(password,urlToken);
         ResponseDto response = new ResponseDto(resetPassword);
         return new ResponseEntity(response,HttpStatus.OK);
     }

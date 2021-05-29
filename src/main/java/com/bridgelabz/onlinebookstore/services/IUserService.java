@@ -12,5 +12,5 @@ public interface IUserService {
     void verifyEmail(String tokenId);
     String userLogin(UserLoginDto userLoginDto);
     String resetPasswordLink(String email) throws MessagingException;
-    String resetPassword(String password, UUID userId);
+    String resetPassword(String password, String urlToken);
 }

@@ -13,8 +13,4 @@ public class ApplicationConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public Token token(){
-//        return new Token();
-//    }
 }

@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,11 +26,7 @@ public class UserService implements IUserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Autowired
-//    HttpServletRequest httpServletRequest;
-
-
-    Token jwtToken=new Token();
+    Token jwtToken = new Token();
 
     @Autowired
     MailService mailService;
@@ -38,20 +34,16 @@ public class UserService implements IUserService {
     @Override
     public UserDetailsModel addUser(UserDetailsDto userDetails) {
         Optional<UserDetailsModel> byEmailId = userDetailsRepository.findByEmailID(userDetails.getEmailID());
-
         if(byEmailId.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_ALREADY_PRESENT);
         }
         String password = bCryptPasswordEncoder.encode(userDetails.getPassword());
-
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetails.getFullName(),
                 userDetails.getPhoneNumber(),
                 userDetails.getEmailID(),
                 password);
-
         UserDetailsModel saveDetails = userDetailsRepository.save(userDetailsModel);
         String tokenId = jwtToken.generateVerificationToken(userDetailsModel);
-
         String requestUrl ="http://localhost:8080/user/verify/email/"+tokenId;
         System.out.println("token from registration is "+tokenId);
         try {
@@ -59,7 +51,6 @@ public class UserService implements IUserService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
         return new UserDetailsModel(saveDetails);
     }
 
@@ -69,16 +60,11 @@ public class UserService implements IUserService {
         System.out.println("your token id is "+tokenId);
         UUID tokenjwt = jwtToken.decodeJWT(tokenId);
         System.out.println(tokenjwt);
-
-
         Optional<UserDetailsModel> userId = userDetailsRepository.findById(tokenjwt);
-
         System.out.println("userid" +userId);
-
         if(!userId.isPresent()) {
             throw  new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
-
         userId.get().setVerified(true);
         userDetailsRepository.save(userId.get());
 
@@ -110,15 +96,17 @@ public class UserService implements IUserService {
         UserDetailsModel user = userDetailsRepository.findByEmailID(email).orElseThrow(() -> new UserException("Email Not Found", UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
         String urlToken = "Click on below link to Reset your Password \n"
-                + "http://localhost:8080/user/reset/Password/" + tokenGenerate;
+                + "http://localhost:8080/user/reset/password/" + tokenGenerate;
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";
     }
 
 
     @Override
-    public String resetPassword(String password, UUID userId) {
-        //UUID userId = jwtToken.decodeJWT(urlToken);
+    public String resetPassword(String password, String urlToken) {
+        System.out.println(urlToken);
+        UUID userId = jwtToken.decodeJWT(urlToken);
+        System.out.println(userId);
         UserDetailsModel userDetails = userDetailsRepository.findById(userId).orElseThrow(() -> new UserException("User Not Found", UserException.ExceptionType.INVALID_DATA));
         String encodePassword = bCryptPasswordEncoder.encode(password);
         userDetails.password = encodePassword;
