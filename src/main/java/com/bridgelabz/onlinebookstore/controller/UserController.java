@@ -7,6 +7,7 @@ import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.bridgelabz.onlinebookstore.services.IUserService;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import com.bridgelabz.onlinebookstore.exception.UserException;
+import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 
 @RestController
@@ -23,6 +25,8 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+
+    Token jwtToken=new Token();
     @GetMapping("/welcome")
     public String welcome(){
         return "Hello in Online Book Store";
@@ -52,8 +56,7 @@ public class UserController {
     public ResponseEntity verifyEmail(@PathVariable String  tokenId ){
         System.out.println("the token id from responseEntity is : "+tokenId);
         userService.verifyEmail(tokenId);
-
-        return new ResponseEntity (HttpStatus.CREATED);
+        return new ResponseEntity ("EMAIL VERIFIED",HttpStatus.OK);
 
     }
 
@@ -78,13 +81,15 @@ public class UserController {
 
     @PostMapping("/reset/password/")
     public ResponseEntity<ResponseDto> resetPassword(@RequestParam(name = "password") String password,@RequestParam(value = "token",defaultValue = "") String urlToken){
-        String resetPassword = userService.resetPassword(password,urlToken);
+        UUID userId = jwtToken.decodeJWT(urlToken);
+        String resetPassword = userService.resetPassword(password,userId);
         ResponseDto response = new ResponseDto(resetPassword);
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
     @PostMapping("/resend/mail")
     public ResponseEntity<ResponseDto> resendMail(@RequestParam("emailID") String emailID) throws MessagingException {
+
         String link = userService.resetPasswordLink(emailID);
         ResponseDto response = new ResponseDto(link);
         return new ResponseEntity(response, HttpStatus.OK);
