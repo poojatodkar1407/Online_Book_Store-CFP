@@ -53,7 +53,6 @@ public class UserDetailsModel implements Serializable {
     @NotEmpty(message = "Please Do  Enter Password!")
     public String password;
 
-    public boolean status;
     public boolean isVerified;
     public LocalDateTime createdAt = LocalDateTime.now();
     public LocalDateTime updatedAt;
