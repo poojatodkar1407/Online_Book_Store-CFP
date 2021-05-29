@@ -51,7 +51,7 @@ public class UserService implements IUserService {
         UserDetailsModel user = userDetailsRepository.findByEmail(email).orElseThrow(() -> new UserException("Email Not Found", UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
         urlToken = "Click on below link to Reset your Password \n"
-                + "http://localhost:8081/swagger-ui.html#!/user-controller/resetPasswordUsingPOST" + "\n token:" + tokenGenerate;
+                + "http://localhost:8080/swagger-ui.html#!/user-controller/reset/Password/" + "\n token:" + tokenGenerate;
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";
     }
