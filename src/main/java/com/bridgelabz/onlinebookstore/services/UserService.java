@@ -35,7 +35,7 @@ public class UserService implements IUserService {
 
     @Override
     public String userLogin(UserLoginDto userLoginDto) {
-        Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmail(userLoginDto.emailID);
+        Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.emailID);
         if (userDetailsByEmail.isPresent() && userDetailsByEmail.get().status) {
             boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
             if (!password) {
@@ -48,10 +48,10 @@ public class UserService implements IUserService {
 
     @Override
     public String resetPasswordLink(String email) throws MessagingException {
-        UserDetailsModel user = userDetailsRepository.findByEmail(email).orElseThrow(() -> new UserException("Email Not Found", UserException.ExceptionType.EMAIL_NOT_FOUND));
+        UserDetailsModel user = userDetailsRepository.findByEmailID(email).orElseThrow(() -> new UserException("Email Not Found", UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
         String urlToken = "Click on below link to Reset your Password \n"
-                + "http://localhost:8080/swagger-ui.html#!/user-controller/reset/Password/" + "\n token:" + tokenGenerate;
+                + "http://localhost:8080/user/reset/Password/" + tokenGenerate;
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";
     }
