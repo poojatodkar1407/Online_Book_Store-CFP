@@ -55,5 +55,14 @@ public class UserService implements IUserService {
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";
     }
+    @Override
+    public String resetPassword(String password, String urlToken) {
+        UUID userId = jwtToken.decodeJWT(urlToken);
+        UserDetailsModel userDetails = userDetailsRepository.findById(userId).orElseThrow(() -> new UserException("User Not Found", UserException.ExceptionType.INVALID_DATA));
+        String encodePassword = bCryptPasswordEncoder.encode(password);
+        userDetails.password = encodePassword;
+        userDetailsRepository.save(userDetails);
+        return "Password Has Been Reset";
 
+    }
 }
