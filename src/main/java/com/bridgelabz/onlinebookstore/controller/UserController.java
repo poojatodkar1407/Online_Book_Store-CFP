@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.controller;
 
+import com.bridgelabz.onlinebookstore.dto.ResponseDto;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import com.bridgelabz.onlinebookstore.exception.UserException;
 import com.bridgelabz.onlinebookstore.services.IUserService;
@@ -7,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -37,5 +37,11 @@ public class UserController {
         return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
     }
 
+    @PostMapping("/forget/password")
+    public ResponseEntity getResetPassword(@RequestParam("emailID") String emailID, HttpServletRequest httpServletRequest) throws MessagingException {
+        String resetPassword = userService.resetPasswordLink(emailID,httpServletRequest.getPathInfo());
+        ResponseDto response = new ResponseDto(resetPassword);
+        return new ResponseEntity(response,HttpStatus.OK);
+    }
 
 }
