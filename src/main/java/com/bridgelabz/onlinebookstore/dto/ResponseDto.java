@@ -14,4 +14,8 @@ public class ResponseDto {
             this.statusCode = statusCode;
             this.object = object;
         }
+
+        public ResponseDto(Object object){
+            this.object = object;
+        }
 }

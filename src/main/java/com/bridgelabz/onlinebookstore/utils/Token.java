@@ -2,11 +2,12 @@ package com.bridgelabz.onlinebookstore.utils;
 
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import io.jsonwebtoken.*;
-import org.aspectj.weaver.patterns.IToken;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.util.Date;
 import java.util.UUID;
+
 
 public class Token {
 
@@ -21,8 +22,8 @@ public class Token {
                     .setId(String.valueOf(userDetails.userId))
                     .setSubject(userDetails.fullName)
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(currentTime + jwtProperties.getJwtExpirationMs()))
-                    .signWith(SignatureAlgorithm.HS256, jwtProperties.getJwtSecret())
+                    .setExpiration(new Date(currentTime + 100000000))
+                    .signWith(SignatureAlgorithm.HS256, "sd5745FAHFW")
                     .compact();
         }
 
@@ -49,7 +50,7 @@ public class Token {
             } catch (ExpiredJwtException e) {
                 throw new JwtException("session time out");
             }
-       }
+        }
 
 }
 

@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.configuration;
 
+import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,4 +13,8 @@ public class ApplicationConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public Token token(){
+//        return new Token();
+//    }
 }
