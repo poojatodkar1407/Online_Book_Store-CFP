@@ -149,7 +149,6 @@ public class UserServiceTest {
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
         userDetailsModel.isVerified = true;
         UserLoginDto userLoginDto = new UserLoginDto("shamalpatil1998@gmail.com", "Paju@98");
-       // userDetailsModel.userId = 1;
         when(userDetailsRepository.findByEmailID(any())).thenReturn(java.util.Optional.of(userDetailsModel));
         when(bCryptPasswordEncoder.matches(any(), any())).thenReturn(true);
         when(fileProperties.getJwtExpirationMs()).thenReturn(86400000);

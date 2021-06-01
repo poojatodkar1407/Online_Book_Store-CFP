@@ -72,17 +72,8 @@ public class UserControllerTest {
                                 .content(toJson)
                                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
         System.out.println(mvcResult.getResponse());
-
-         String message="USER ADDED SUCCESSFULLY: ";
-
-
-
-           // Assert.assertEquals(200,mvcResult.getResponse().getStatus());
-             Assert.assertEquals(message,new Gson().fromJson(mvcResult.getResponse().getContentAsString(),ResponseDto.class).getMessage());
-//            String response = mvcResult.getResponse().getContentAsString();
-//            ResponseDto responseDto = gson.fromJson(response, ResponseDto.class);
-//            String responseMessage = responseDto.getMessage();
-//            Assert.assertEquals(message,responseMessage);
+        String message="USER ADDED SUCCESSFULLY: ";
+         Assert.assertEquals(message,new Gson().fromJson(mvcResult.getResponse().getContentAsString(),ResponseDto.class).getMessage());
 
 
     }
@@ -94,8 +85,6 @@ public class UserControllerTest {
         userDetailsDto.emailID="parhiankita@.com";
         userDetailsDto.password="Ankita@9713";
         userDetailsDto.phoneNumber="917077757574";
-        //UserDetailsModel userDetailsModel = userService.addUser(userDetailsDto);
-
         String toJson = new Gson().toJson(userDetailsDto);
 
         System.out.println("the tojson is "+toJson);
@@ -117,7 +106,6 @@ public class UserControllerTest {
         userDetailsDto.emailID="parhiankita@gmail.com";
         userDetailsDto.password="Ankita@9713";
         userDetailsDto.phoneNumber="917077757574";
-        //UserDetailsModel userDetailsModel = userService.addUser(userDetailsDto);
 
         String toJson = new Gson().toJson(userDetailsDto);
 
@@ -141,7 +129,7 @@ public class UserControllerTest {
         userDetailsDto.emailID="parhiankita@gmail.com";
         userDetailsDto.password="ankita@9713";
         userDetailsDto.phoneNumber="917077757574";
-        //UserDetailsModel userDetailsModel = userService.addUser(userDetailsDto);
+
 
         String toJson = new Gson().toJson(userDetailsDto);
 
@@ -164,8 +152,6 @@ public class UserControllerTest {
         userDetailsDto.emailID="parhiankita@gmail.com";
         userDetailsDto.password="ankita@9713";
         userDetailsDto.phoneNumber="9170777574";
-        //UserDetailsModel userDetailsModel = userService.addUser(userDetailsDto);
-
         String toJson = new Gson().toJson(userDetailsDto);
 
         System.out.println("the tojson is "+toJson);
