@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class BookDetails {
+public class BookDetailsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,13 +21,12 @@ public class BookDetails {
     public int rating;
     public int publishingYear;
 
-    @OneToMany(mappedBy = "bookDetails")
-    List<BookCartDetails> bookCartDetails;
+//    @OneToMany(mappedBy = "bookDetails")
+//    List<BookCartDetails> bookCartDetails;
 
-    public BookDetails() {
-    }
 
-    public BookDetails(BookDto bookDTO) {
+
+    public BookDetailsModel(BookDto bookDTO) {
         this.bookName = bookDTO.bookName;
         this.authorName = bookDTO.authorName;
         this.bookPrice = bookDTO.bookPrice;
