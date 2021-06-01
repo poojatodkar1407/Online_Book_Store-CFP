@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo getApiInfo() {
         Contact contact = new Contact("CFP-051",
-                "https://bridgelabz.com/", "pooja.todkar@bridgelabz.com");
+                "https://bridgelabz.com/", "shamalpatil1998@gmail.com");
         return new ApiInfoBuilder().title("Online BookStore backend API ")
                 .description("Online Book Store Api for manaing the book store")
                 .version("1.0")

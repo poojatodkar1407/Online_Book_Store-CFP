@@ -2,11 +2,12 @@ package com.bridgelabz.onlinebookstore.exception;
 
 public class UserException extends RuntimeException {
     public enum ExceptionType {
-        USER_ALREADY_EXISTS,
+        USER_ALREADY_PRESENT,
         EMAIL_NOT_FOUND,
         PASSWORD_INVALID,
         ALREADY_VERIFIED,
-        INVALID_DATA
+        INVALID_DATA,
+        USER_NOT_FOUND,
     }
 
     public UserException.ExceptionType type;

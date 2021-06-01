@@ -4,8 +4,10 @@ import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import java.util.Date;
 import java.util.UUID;
+
 
 public class Token {
 
@@ -20,8 +22,8 @@ public class Token {
                     .setId(String.valueOf(userDetails.userId))
                     .setSubject(userDetails.fullName)
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(currentTime + jwtProperties.getJwtExpirationMs()))
-                    .signWith(SignatureAlgorithm.HS256, jwtProperties.getJwtSecret())
+                    .setExpiration(new Date(currentTime + 100000000))
+                    .signWith(SignatureAlgorithm.HS256, "sd5745FAHFW")
                     .compact();
         }
 
@@ -33,15 +35,15 @@ public class Token {
                     .setId(String.valueOf(userDetails.userId))
                     .setSubject(userDetails.fullName)
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(currentTime + jwtProperties.getVerificationMs()))
-                    .signWith(SignatureAlgorithm.HS256, jwtProperties.getJwtSecret())
+                    .setExpiration(new Date(currentTime +100000000))
+                    .signWith(SignatureAlgorithm.HS256, "sd5745FAHFW")
                     .compact();
         }
 
         public UUID decodeJWT(String jwt) throws JwtException {
             try {
                 Claims claims = Jwts.parser()
-                        .setSigningKey(jwtProperties.getJwtSecret()).parseClaimsJws(jwt).getBody();
+                        .setSigningKey("sd5745FAHFW").parseClaimsJws(jwt).getBody();
 
                 System.out.println("jwt id: " + claims.getId());
                 return UUID.fromString(claims.getId());

@@ -1,15 +1,21 @@
 package com.bridgelabz.onlinebookstore.dto;
 
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+
+@NoArgsConstructor
 public class UserLoginDto {
 
-    @Pattern(regexp = "/[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm",message = "please do enter the valid email id" )
+    @Pattern(regexp = "^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",message = "please do enter the valid email id" )
     @NotNull(message = "Please Do Enter email id!")
     @NotEmpty(message = "Please Do Enter email id!")
     public String emailID;
+
+
 
     @Pattern(regexp = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", message = "please enter correct password")
     @NotNull(message = "Please Do Enter Password!")
