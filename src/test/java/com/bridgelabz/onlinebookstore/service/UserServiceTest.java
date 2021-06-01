@@ -45,7 +45,6 @@ public class UserServiceTest {
     @MockBean
     FileProperties fileProperties;
 
-
     @Mock
     MailService mailService;
 
@@ -73,7 +72,7 @@ public void setUp(){
     }
 
     @Test
-   public void givenUserDetails_WhenUserResetPassword_ShouldReturnResetPasswordLinkMessage() throws  MessagingException {
+    public void givenUserDetails_WhenUserResetPassword_ShouldReturnResetPasswordLinkMessage() throws  MessagingException {
         String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OWRjYWZlMi00Nzk0LTQwMDctYjU4NS00ZjVmNDhkYThiMDQiLCJzdWIiOiJNb3VuYSIsImlhdCI6MTYyMjQ0MzY4NCwiZXhwIjoxNjIyNTQzNjg0fQ.zDCu3Ka9Tslm2wwx8zzXOexVFG-NCfrbOOQohRBjxbg";
         String message ="Reset Password Link Has Been Sent To Your Email Address";
         when(userRepository.findByEmailID("mounamc267@gmail.com")).thenReturn(Optional.of(userDetailsModel));
