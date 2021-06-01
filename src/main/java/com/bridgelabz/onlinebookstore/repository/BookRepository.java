@@ -1,4 +1,12 @@
 package com.bridgelabz.onlinebookstore.repository;
 
-public class BookRepository {
+import com.bridgelabz.onlinebookstore.model.BookDetailsModel;
+import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface BookRepository extends JpaRepository<BookDetailsModel,UUID> {
 }

@@ -1,12 +1,22 @@
 package com.bridgelabz.onlinebookstore.model;
 
 import com.bridgelabz.onlinebookstore.dto.BookDto;
+import lombok.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table
 public class BookDetailsModel {
 
     @Id
@@ -20,6 +30,7 @@ public class BookDetailsModel {
     public double quantity;
     public int rating;
     public int publishingYear;
+    public LocalDateTime createdAt = LocalDateTime.now();
 
 //    @OneToMany(mappedBy = "bookDetails")
 //    List<BookCartDetails> bookCartDetails;
@@ -35,4 +46,6 @@ public class BookDetailsModel {
         this.description = bookDTO.description;
         this.publishingYear = bookDTO.publishingYear;
     }
+
+
 }
