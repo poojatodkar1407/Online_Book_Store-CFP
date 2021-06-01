@@ -9,6 +9,8 @@ import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import com.bridgelabz.onlinebookstore.exception.UserException;
 import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -21,12 +23,15 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
+@ComponentScan
+@EnableAutoConfiguration
 public class UserController {
     @Autowired
     IUserService userService;
 
 
     Token jwtToken=new Token();
+
     @GetMapping("/welcome")
     public String welcome(){
         return "Hello in Online Book Store";

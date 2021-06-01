@@ -14,7 +14,7 @@ public class MailService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    public void sendMail(String body,String subject,String emailID) throws MessagingException {
+    public void sendMail(String body, String subject, String emailID) throws MessagingException {
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

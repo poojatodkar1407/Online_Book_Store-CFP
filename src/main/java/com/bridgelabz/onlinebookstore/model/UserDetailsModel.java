@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.model;
 
+import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -58,4 +59,8 @@ public class UserDetailsModel implements Serializable {
         this.updatedAt=userDetailsModel.getUpdatedAt();
     }
 
+    public UserDetailsModel(UserLoginDto loginDto) {
+        this.emailID = loginDto.emailID;
+        this.password = loginDto.password;
+    }
 }
