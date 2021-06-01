@@ -2,9 +2,15 @@ package com.bridgelabz.onlinebookstore.model;
 
 import com.bridgelabz.onlinebookstore.dto.BookDto;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -20,8 +26,10 @@ import java.util.UUID;
 public class BookDetailsModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    public UUID id;
+    @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Type(type = "uuid-char")
+    public UUID bookId;
 
     public String bookName;
     public String authorName;
@@ -32,10 +40,21 @@ public class BookDetailsModel {
     public int publishingYear;
     public LocalDateTime createdAt = LocalDateTime.now();
 
+
 //    @OneToMany(mappedBy = "bookDetails")
 //    List<BookCartDetails> bookCartDetails;
 
 
+    public BookDetailsModel( String bookName, String authorName, String description, double bookPrice, double quantity, int rating, int publishingYear) {
+
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.description = description;
+        this.bookPrice = bookPrice;
+        this.quantity = quantity;
+        this.rating = rating;
+        this.publishingYear = publishingYear;
+    }
 
     public BookDetailsModel(BookDto bookDTO) {
         this.bookName = bookDTO.bookName;
@@ -45,6 +64,19 @@ public class BookDetailsModel {
         this.quantity = bookDTO.quantity;
         this.description = bookDTO.description;
         this.publishingYear = bookDTO.publishingYear;
+    }
+
+
+    public BookDetailsModel(BookDetailsModel bookDetailsModel) {
+        this.bookId=bookDetailsModel.getBookId();
+        this.bookName=bookDetailsModel.getBookName();
+        this.authorName=bookDetailsModel.getAuthorName();
+        this.bookPrice=bookDetailsModel.getBookPrice();
+        this.rating=bookDetailsModel.getRating();
+        this.quantity=bookDetailsModel.getQuantity();
+        this.description =bookDetailsModel.getDescription();
+        this.publishingYear=bookDetailsModel.getPublishingYear();
+        this.createdAt=bookDetailsModel.getCreatedAt();
     }
 
 
