@@ -2,7 +2,7 @@ package com.bridgelabz.onlinebookstore.dto;
 
 public class CartDto {
 
-    public Integer id;
+    public Integer cartId;
 
 
     public Integer quantity;
@@ -11,8 +11,8 @@ public class CartDto {
     public CartDto() {
     }
 
-    public CartDto(Integer id, Integer quantity,Double totalPrice) {
-        this.id = id;
+    public CartDto(Integer cartId, Integer quantity,Double totalPrice) {
+        this.cartId = cartId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
