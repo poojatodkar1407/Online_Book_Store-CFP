@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class ResponseDto {
 
-        private String message;
+        public String message;
         private String statusCode;
         private Object object;
 
