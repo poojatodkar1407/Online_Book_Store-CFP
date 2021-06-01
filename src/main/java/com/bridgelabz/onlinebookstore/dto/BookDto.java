@@ -20,6 +20,8 @@ public class BookDto {
     @Length(min = 1, max = 300, message = "Description should between 1-300 characters")
     public String description;
 
+    public int rating;
+
 
     @Min(value = 1, message = "Book Price cant be 0")
     public double bookPrice;
@@ -30,10 +32,11 @@ public class BookDto {
     @Range(min = 999, max = 2020, message = "Year should be between 999 and 2020")
     public int publishingYear;
 
-    public BookDto(String bookName, String authorName, String description, double bookPrice, int quantity, int publishingYear) {
+    public BookDto(String bookName, String authorName, String description,int rating, double bookPrice, int quantity, int publishingYear) {
         this.bookName = bookName;
         this.authorName = authorName;
         this.bookPrice = bookPrice;
+        this.rating = rating;
         this.quantity = quantity;
         this.description = description;
         this.publishingYear = publishingYear;

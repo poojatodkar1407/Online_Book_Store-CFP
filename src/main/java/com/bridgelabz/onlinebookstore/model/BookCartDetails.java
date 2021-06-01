@@ -4,13 +4,14 @@ package com.bridgelabz.onlinebookstore.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class BookCartDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    public UUID id;
 
     public Integer quantity;
     public Double totalPrice;
@@ -26,11 +27,6 @@ public class BookCartDetails {
     @ManyToOne()
     @JoinColumn(name = "cartId")
     public CartDetails cartDetails;
-
-    @ManyToOne()
-    @JoinColumn(name = "orderId")
-    public OrderDetails orderDetails;
-
 
     public BookCartDetails() {
     }

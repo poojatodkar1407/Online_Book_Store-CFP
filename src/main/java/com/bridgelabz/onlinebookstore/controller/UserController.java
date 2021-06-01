@@ -50,7 +50,6 @@ public class UserController {
         return new ResponseEntity (new ResponseDto("USER ADDED SUCCESSFULLY: ",
                 "200",userDetailsModel),
                 HttpStatus.CREATED);
-
     }
 
     @GetMapping("/verify/email/{tokenId}")
@@ -58,16 +57,12 @@ public class UserController {
         System.out.println("the token id from responseEntity is : "+tokenId);
         userService.verifyEmail(tokenId);
         return new ResponseEntity ("EMAIL VERIFIED",HttpStatus.OK);
-
-
-
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         System.out.println("the error part "+bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
-
             throw new UserException("Invalid Data!!!!! Please Enter Valid Data", UserException.ExceptionType.INVALID_DATA);
         }
         String userLogin = userService.userLogin(userLoginDTO);
@@ -91,7 +86,6 @@ public class UserController {
 
     @PostMapping("/resend/mail")
     public ResponseEntity<ResponseDto> resendMail(@RequestParam("emailID") String emailID) throws MessagingException {
-
         String link = userService.resetPasswordLink(emailID);
         ResponseDto response = new ResponseDto(link);
         return new ResponseEntity(response, HttpStatus.OK);

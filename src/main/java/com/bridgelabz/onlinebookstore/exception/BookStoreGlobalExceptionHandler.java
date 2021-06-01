@@ -14,7 +14,6 @@ public class BookStoreGlobalExceptionHandler {
     @ExceptionHandler(BookStoreException.class)
     public ResponseEntity<ResponseDto> handleAddressBookException(BookStoreException bookStoreException){
         log.error("Exception Occurred : " +bookStoreException.exceptionTypes.errorMsg);
-
         return new ResponseEntity<ResponseDto>(new ResponseDto(bookStoreException.exceptionTypes.errorMsg,
                                                               null,null),
                                                                 HttpStatus.BAD_REQUEST);

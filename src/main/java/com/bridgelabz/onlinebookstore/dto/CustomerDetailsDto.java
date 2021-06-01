@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 public class CustomerDetailsDto {
 
     @Pattern(regexp = "^[1-9]{1}[0-9]{2}[-]{0,1}[0-9]{3}$",message = "Please enter a valid 6 digits zip code")
-    public String pincode;
+    public String pinCode;
 
     @Pattern(regexp = "^[a-zA-Z]+",message = "Please enter valid location")
     public String locality;
@@ -23,8 +23,8 @@ public class CustomerDetailsDto {
     public String addressType;
 
 
-    public CustomerDetailsDto(String pincode, String locality, String address, String city, String landmark, String addressType) {
-        this.pincode = pincode;
+    public CustomerDetailsDto(String pinCode, String locality, String address, String city, String landmark, String addressType) {
+        this.pinCode = pinCode;
         this.locality = locality;
         this.address = address;
         this.city = city;

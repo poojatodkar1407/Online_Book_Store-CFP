@@ -4,19 +4,21 @@ import com.bridgelabz.onlinebookstore.dto.BookDto;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class BookDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    public Integer id;
+    public UUID id;
 
     public String bookName;
     public String authorName;
     public String description;
     public double bookPrice;
     public double quantity;
+    public int rating;
     public int publishingYear;
 
     @OneToMany(mappedBy = "bookDetails")
@@ -29,6 +31,7 @@ public class BookDetails {
         this.bookName = bookDTO.bookName;
         this.authorName = bookDTO.authorName;
         this.bookPrice = bookDTO.bookPrice;
+        this.rating = bookDTO.rating;
         this.quantity = bookDTO.quantity;
         this.description = bookDTO.description;
         this.publishingYear = bookDTO.publishingYear;

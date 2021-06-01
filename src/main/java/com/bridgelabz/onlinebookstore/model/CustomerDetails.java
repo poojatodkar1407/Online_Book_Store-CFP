@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table
@@ -15,7 +16,7 @@ public class CustomerDetails {
     @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    public UUID id;
 
     public String pinCode;
     public String locality;
@@ -23,7 +24,6 @@ public class CustomerDetails {
     public String city;
     public String landmark;
 
-    @Enumerated(EnumType.STRING)
     public AddressType addressType;
 
     @JsonIgnore
@@ -31,8 +31,6 @@ public class CustomerDetails {
     @JoinColumn(name = "userId")
     public UserDetailsModel userDetails;
 
-    @OneToMany(mappedBy = "customer")
-    List<OrderDetails> orderDetailsList;
 
     public CustomerDetails() {
     }

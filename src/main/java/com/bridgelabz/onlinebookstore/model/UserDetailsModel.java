@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -35,14 +36,14 @@ public class UserDetailsModel implements Serializable {
     public String fullName;
     private String phoneNumber;
     public String emailID;
-
-
-
     public String password;
-
     public boolean isVerified;
     public LocalDateTime createdAt = LocalDateTime.now();
     public LocalDateTime updatedAt;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
+    public List<CustomerDetails> customerDetails;
+
 
 
     public UserDetailsModel(String fullName, String phoneNumber, String emailID, String password) {
@@ -76,4 +77,5 @@ public class UserDetailsModel implements Serializable {
         this.password = loginDto.password;
 
     }
+
 }
