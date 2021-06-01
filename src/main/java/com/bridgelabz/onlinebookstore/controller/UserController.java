@@ -42,7 +42,7 @@ public class UserController {
                     HttpStatus.BAD_REQUEST);
         }
         UserDetailsModel userDetailsModel = userService.addUser(userDetails);
-        return new ResponseEntity (new ResponseDto("User added succesfully : ",
+        return new ResponseEntity (new ResponseDto("USER ADDED SUCCESSFULLY: ",
                 "200",userDetailsModel),
                 HttpStatus.CREATED);
 
@@ -60,7 +60,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
+        System.out.println("the error part "+bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
+
             throw new UserException("Invalid Data!!!!! Please Enter Valid Data", UserException.ExceptionType.INVALID_DATA);
         }
         String userLogin = userService.userLogin(userLoginDTO);
