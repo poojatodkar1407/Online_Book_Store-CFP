@@ -39,9 +39,9 @@ public class UserService implements IUserService {
         }
         String password = bCryptPasswordEncoder.encode(userDetails.getPassword());
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetails.getFullName(),
-                userDetails.getPhoneNumber(),
-                userDetails.getEmailID(),
-                password);
+                                                                 userDetails.getPhoneNumber(),
+                                                                 userDetails.getEmailID(),
+                                                                  password);
         UserDetailsModel saveDetails = userDetailsRepository.save(userDetailsModel);
         String tokenId = jwtToken.generateVerificationToken(userDetailsModel);
         String requestUrl ="http://localhost:8080/user/verify/email/"+tokenId;
@@ -51,7 +51,7 @@ public class UserService implements IUserService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        return new UserDetailsModel(saveDetails);
+        return saveDetails;
     }
 
 
@@ -65,7 +65,7 @@ public class UserService implements IUserService {
         if(!userId.isPresent()) {
             throw  new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
-        userId.get().setVerified(true);
+        userId.get().isVerified=true;
         userDetailsRepository.save(userId.get());
 
     }
@@ -74,19 +74,22 @@ public class UserService implements IUserService {
 
     @Override
      public String userLogin(UserLoginDto userLoginDto) {
-        Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.emailID);
-        if (userDetailsByEmail.isPresent()) {
-            if(userDetailsByEmail.get().isVerified){
-            boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
-            if (password) {
-                String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
-                    return tokenString;
-            }
-               throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
-            }
-           throw new UserException("Please verify your email before proceeding", UserException.ExceptionType.EMAIL_NOT_FOUND);
+        System.out.println(userLoginDto.emailID);
+        Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.getEmailID());
+        System.out.println("the opyional message is "+userDetailsByEmail);
+        if (!userDetailsByEmail.isPresent()) {
+            throw new UserException("Enter Registered Email", UserException.ExceptionType.EMAIL_NOT_FOUND);
         }
-       throw new UserException("Enter Registered Email", UserException.ExceptionType.EMAIL_NOT_FOUND);
+        if(userDetailsByEmail.get().isVerified){
+            boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
+            if (!password) {
+                throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
+            }
+
+            String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
+            return tokenString;
+        }
+        throw new UserException("Please verify your email before proceeding", UserException.ExceptionType.EMAIL_NOT_FOUND);
     }
 
 

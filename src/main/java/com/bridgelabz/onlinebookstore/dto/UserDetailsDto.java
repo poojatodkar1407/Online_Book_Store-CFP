@@ -4,12 +4,14 @@ package com.bridgelabz.onlinebookstore.dto;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
+@NoArgsConstructor
 public class UserDetailsDto {
     @Pattern(regexp="^[A-Z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$",message = "please enter valid credentials")
     @NotNull(message = "Please Do Enter valid name!")
@@ -21,7 +23,7 @@ public class UserDetailsDto {
     @Pattern(regexp = "^[9]{1}[1]{1}[7896]{1}[0-9]{9}$", message = "Please Do Enter Valid Mobile Number!")
     @NotNull(message = "Please Do Enter Valid Mobile Number!")
     @NotEmpty(message = "Please Do Enter Valid Mobile Number!")
-    private String phoneNumber;
+    public String phoneNumber;
 
     @Pattern(regexp = "^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",message = "please do enter the valid email id" )
     @NotNull(message = "Please Do Enter email id!")
