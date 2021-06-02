@@ -1,6 +1,9 @@
 package com.bridgelabz.onlinebookstore.model;
 
+
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
+import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
+
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -28,14 +31,14 @@ public class UserDetailsModel implements Serializable {
     public String fullName;
     private String phoneNumber;
     public String emailID;
-
-
-
     public String password;
-
     public boolean isVerified;
     public LocalDateTime createdAt = LocalDateTime.now();
     public LocalDateTime updatedAt;
+
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
+//    public List<CustomerDetails> customerDetails;
+
 
 
     public UserDetailsModel(String fullName, String phoneNumber, String emailID, String password) {
@@ -54,6 +57,20 @@ public class UserDetailsModel implements Serializable {
         this.isVerified=userDetailsModel.isVerified();
         this.createdAt=userDetailsModel.getCreatedAt();
         this.updatedAt=userDetailsModel.getUpdatedAt();
+    }
+
+
+    public UserDetailsModel(UserDetailsDto userDetailsDto) {
+        this.fullName = userDetailsDto.getFullName();
+        this.phoneNumber = userDetailsDto.getPhoneNumber();
+        this.emailID = userDetailsDto.getEmailID();
+        this.password = userDetailsDto.getPassword();
+    }
+
+    public UserDetailsModel(UserLoginDto loginDto) {
+        this.emailID = loginDto.emailID;
+        this.password = loginDto.password;
+
     }
 
 }

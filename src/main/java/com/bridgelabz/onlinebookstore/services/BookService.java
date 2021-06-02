@@ -1,0 +1,89 @@
+package com.bridgelabz.onlinebookstore.services;
+
+import com.bridgelabz.onlinebookstore.dto.BookDto;
+import com.bridgelabz.onlinebookstore.exception.BookStoreException;
+import com.bridgelabz.onlinebookstore.model.BookDetailsModel;
+import com.bridgelabz.onlinebookstore.repository.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Service
+public class BookService implements IBookService{
+
+    @Autowired
+    BookRepository bookRepository;
+
+    @Override
+    public BookDetailsModel addBook(BookDto book) {
+        Optional<BookDetailsModel> searchBookByName = bookRepository.findByBookName(book.getBookName());
+        //Optional<BookDetailsModel> searchBookByAuther = bookRepository.findByAuthorName(book.getAuthorName());
+        //Optional<BookDetailsModel> search = bookRepository.findBookDetailsModelBy(book.getBookName(), book.getAuthorName());
+
+        if (searchBookByName.isPresent()) {
+            throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
+
+
+        }
+        BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getBookName(),
+                book.getAuthorName(),
+                book.getDescription(),
+                book.getBookPrice(),
+                book.getQuantity(),
+                book.getRating(),
+                book.getPublishingYear());
+
+        BookDetailsModel saveBookToDataBsae = bookRepository.save(bookDetailsModel);
+        return  saveBookToDataBsae;
+    }
+
+
+    @Override
+    public List<BookDetailsModel> showAllBooks() {
+
+        return bookRepository.findAll().
+                stream().
+                map(bookDetailsModel -> new BookDetailsModel(bookDetailsModel)).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDetailsModel> showBookHigherToLower() {
+
+        return bookRepository.findAll().stream()
+                .sorted(Comparator.comparing(bookDetailsModel -> bookDetailsModel.bookPrice))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDetailsModel> showBookLowerToHigher() {
+        List<BookDetailsModel> bookDetail =  bookRepository.findAll().stream()
+                                             .sorted(Comparator.comparing(bookDetailsModel -> bookDetailsModel.bookPrice))
+                                              .collect(Collectors.toList());
+
+         Collections.reverse(bookDetail);
+         return bookDetail;
+
+    }
+
+    @Override
+    public List<BookDetailsModel> showBookNewLaunch() {
+        List<BookDetailsModel> bookDetailsModelList=bookRepository.findAll().stream()
+                .sorted(Comparator.comparing(bookDetails -> bookDetails.getCreatedAt()))
+                .collect(Collectors.toList());
+     Collections.reverse(bookDetailsModelList);
+     return bookDetailsModelList;
+
+
+    }
+
+    @Override
+    public int getCountOfBooks() {
+        List<BookDetailsModel> totalBooks = bookRepository.findAll();
+        return totalBooks.size();
+    }
+
+
+}

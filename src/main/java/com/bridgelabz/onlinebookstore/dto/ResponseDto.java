@@ -1,11 +1,15 @@
 package com.bridgelabz.onlinebookstore.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class ResponseDto {
 
-        private String message;
+        public String message;
         private String statusCode;
         private Object object;
 
