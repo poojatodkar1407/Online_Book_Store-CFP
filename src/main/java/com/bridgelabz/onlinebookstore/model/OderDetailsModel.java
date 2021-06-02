@@ -1,14 +1,21 @@
 package com.bridgelabz.onlinebookstore.model;
 
-import javax.persistence.*;
-import java.util.List;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-@Table
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
+
+//@Table
 @Entity
-public class OderDetailsModel {
+public class OderDetailsModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Type(type = "uuid-char")
+    public UUID id;
 
     @ManyToOne()
     @JoinColumn(name = "cartId")

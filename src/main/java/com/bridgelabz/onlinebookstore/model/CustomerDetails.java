@@ -1,12 +1,15 @@
 package com.bridgelabz.onlinebookstore.model;
 
 
+import com.bridgelabz.onlinebookstore.utils.AddressType;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table
-public class CustomerDetails {
+public class CustomerDetails implements Serializable {
 
 
     @Id
@@ -19,7 +22,7 @@ public class CustomerDetails {
     public String city;
     public String landmark;
 
-  // public AddressType addressType;
+   public AddressType addressType;
 
 
     @ManyToOne()
