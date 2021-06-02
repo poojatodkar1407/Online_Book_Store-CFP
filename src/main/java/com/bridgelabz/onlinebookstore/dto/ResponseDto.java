@@ -22,4 +22,10 @@ public class ResponseDto {
         public ResponseDto(Object object){
             this.object = object;
         }
+
+    public ResponseDto(String message,Object object) {
+        this.message = message;
+        this.object = object;
+    }
+
 }

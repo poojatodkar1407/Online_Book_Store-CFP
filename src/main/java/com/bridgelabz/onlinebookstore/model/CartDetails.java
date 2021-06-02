@@ -1,16 +1,20 @@
 package com.bridgelabz.onlinebookstore.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
-//@Data
+
+
+
+
+
+
 @Entity
 //@Table
 @Getter
@@ -24,6 +28,9 @@ public class CartDetails implements Serializable {
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Type(type = "uuid-char")
     public UUID cartId;
+
+    public int quantity;
+
 
     @OneToMany()
     @Where(clause = "order_status=true")

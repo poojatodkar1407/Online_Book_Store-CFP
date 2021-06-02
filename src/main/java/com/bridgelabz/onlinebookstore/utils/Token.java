@@ -2,7 +2,6 @@ package com.bridgelabz.onlinebookstore.utils;
 
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
