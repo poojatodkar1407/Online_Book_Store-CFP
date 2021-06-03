@@ -121,5 +121,81 @@ public class BookServiceTest {
         }
     }
 
+    @Test
+    void givenGetAllBooks_LowToHigh_ReturnBookDetails() {
+        List<BookDetailsModel> bookList = new ArrayList<>();
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
+        BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
+        bookList.add(bookDetails);
+        bookList.add(bookDetails1);
+        when(bookService.showBookLowerToHigher()).thenReturn(bookList);
+        int size = bookList.size();
+        Assert.assertEquals(2, size);
+    }
+
+    @Test
+    void givenGetAllBooks_HighToLow_ReturnBookDetails() {
+        List<BookDetailsModel> bookList = new ArrayList<>();
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
+        BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
+        bookList.add(bookDetails);
+        bookList.add(bookDetails1);
+        when(bookService.showBookHigherToLower()).thenReturn(bookList);
+        int size = bookList.size();
+        Assert.assertEquals(2, size);
+    }
+
+    @Test
+    void givenFetchAllBooks_LowToHigh_ReturnBookDetails() {
+        List<BookDetailsModel> bookList = new ArrayList<>();
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
+        BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
+        bookList.add(bookDetails);
+        bookList.add(bookDetails1);
+        when(bookService.showBookHigherToLower()).thenReturn(bookList);
+        int size = bookList.size();
+        Assert.assertEquals(2, size);
+    }
+
+    @Test
+    void givenFetchAllBooks_HighToLow_ReturnBookDetails() {
+        List<BookDetailsModel> bookList = new ArrayList<>();
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
+        BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
+        bookList.add(bookDetails);
+        bookList.add(bookDetails1);
+        when(bookService.showBookHigherToLower()).thenReturn(bookList);
+        int size = bookList.size();
+        Assert.assertEquals(2, size);
+    }
+
+    @Test
+    void givenFetchAllBooks_NewestArrival_ReturnBookDetails() {
+        List<BookDetailsModel> bookList = new ArrayList<>();
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
+        BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
+        bookList.add(bookDetails);
+        bookList.add(bookDetails1);
+        when(bookService.showBookNewLaunch()).thenReturn(bookList);
+        int size = bookList.size();
+        Assert.assertEquals(2, size);
+    }
+
+
+
+
+
+
+
 
 }
