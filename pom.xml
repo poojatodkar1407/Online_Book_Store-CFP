@@ -106,10 +106,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<<<<<<< HEAD
-=======
 
->>>>>>> df6630db0abf5702eb021d76dcd43a517bf0f467
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

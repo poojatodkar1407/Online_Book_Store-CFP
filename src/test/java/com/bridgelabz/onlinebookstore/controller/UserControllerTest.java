@@ -142,8 +142,8 @@ public class UserControllerTest {
 
     @Test
     public void givenUserDetailsToLoginUser_WhenValidData_ShouldReturnCorrectMessage() throws Exception {
-            userLoginDto.emailID="shamalpatil1998@gmail.com";
-            userLoginDto.password="Pajusham@98";
+            userLoginDto.emailID="parhiankita@gmail.com";
+            userLoginDto.password="ankita@9713";
             String toJson = new Gson().toJson(userLoginDto);
             String message = "LOGIN SUCCESSFUL";
             MvcResult mvcResult = this.mockMvc.perform(post("/user/login")
@@ -155,8 +155,8 @@ public class UserControllerTest {
 
     @Test
     public void givenUserDetailsToLoginUser_WhenInvalidData_ShouldThrowException() throws Exception {
-        userLoginDto.emailID="shamalpatil1998@gmail.com";
-        userLoginDto.password="Pajusham@98";
+        userLoginDto.emailID="mounamc267@gmail.com";
+        userLoginDto.password="Attitude@007";
         String toJson = new Gson().toJson(userLoginDto);
         String message = "LOGIN SUCCESSFUL";
         MvcResult mvcResult = this.mockMvc.perform(post("/user/login")
@@ -167,7 +167,7 @@ public class UserControllerTest {
 
     @Test
     void givenEmailId_WhenProper_ShouldSendResetPasswordLink() throws Exception{
-        String emailId = "mounamc261@gmail.com";
+        String emailId = "mounamc267@gmail.com";
         String message = "Reset Password Link Has Been Sent To Your Email Address";
         MvcResult mvcResult =this.mockMvc.perform(post("/user/forget/password")
                 .param("emailID", emailId)).andReturn();
