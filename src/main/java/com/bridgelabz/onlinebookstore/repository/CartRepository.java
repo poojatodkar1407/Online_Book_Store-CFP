@@ -6,10 +6,12 @@ import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface CartRepository extends JpaRepository<CartDetails,UUID> {
-    Optional<CartDetails> findByUserDetailsModel(UserDetailsModel userDetailsModel);
+        List<CartDetails>findByUserDetailsModel(UserDetailsModel userDetailsModel);
+   //Optional<CartDetails> findByUserDetailsModel1(UserDetailsModel userDetailsModel);
  }

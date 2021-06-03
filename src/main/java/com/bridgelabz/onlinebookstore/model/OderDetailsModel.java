@@ -1,5 +1,9 @@
 package com.bridgelabz.onlinebookstore.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -10,6 +14,10 @@ import java.util.UUID;
 
 //@Table
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OderDetailsModel implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
@@ -17,20 +25,20 @@ public class OderDetailsModel implements Serializable {
     @Type(type = "uuid-char")
     public UUID id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "cartId")
     public CartDetails cart;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "userId")
     public UserDetailsModel user;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "customer")
     public CustomerDetails customer;
 
-    @OneToMany(mappedBy = "orderDetails")
-    List<BookCartDetails> bookCartDetails;
+//    @OneToMany(mappedBy = "orderDetails")
+//    List<BookCartDetails> bookCartDetails;
 
 }
 

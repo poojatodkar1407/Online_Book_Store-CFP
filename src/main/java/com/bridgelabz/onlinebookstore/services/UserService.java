@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -66,6 +67,7 @@ public class UserService implements IUserService {
             throw  new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
         userId.get().isVerified=true;
+        userId.get().updatedAt= LocalDateTime.now();
         userDetailsRepository.save(userId.get());
 
     }
@@ -76,7 +78,7 @@ public class UserService implements IUserService {
      public String userLogin(UserLoginDto userLoginDto) {
         System.out.println(userLoginDto.emailID);
         Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.getEmailID());
-        System.out.println("the opyional message is "+userDetailsByEmail);
+        System.out.println("the optional message is "+userDetailsByEmail);
         if (!userDetailsByEmail.isPresent()) {
             throw new UserException("Enter Registered Email", UserException.ExceptionType.EMAIL_NOT_FOUND);
         }

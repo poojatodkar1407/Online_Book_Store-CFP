@@ -29,15 +29,15 @@ public class BookCartDetails {
     public boolean orderStatus;
     public String addedToCartDate;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "bookId")
     public BookDetailsModel bookDetailsModel;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "cartId")
     public CartDetails cartDetails;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "orderId")
     public OderDetailsModel orderDetails;
 
