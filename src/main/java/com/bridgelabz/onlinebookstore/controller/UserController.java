@@ -60,10 +60,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
+<<<<<<< HEAD
     public ResponseEntity login(@RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
+=======
+    public ResponseEntity<ResponseDto> login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
+>>>>>>> 5f8b8947ebb504b6ec737da47830625557f81d21
         System.out.println("the error part "+bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
-            throw new UserException("Invalid Data!!!!! Please Enter Valid Data", UserException.ExceptionType.INVALID_DATA);
+            return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
+                    getDefaultMessage(),"100",null),
+                    HttpStatus.BAD_REQUEST);
+
         }
         String userLogin = userService.userLogin(userLoginDTO);
         httpServletResponse.setHeader("Authorization", userLogin);

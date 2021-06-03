@@ -22,7 +22,6 @@ public class BookService implements IBookService{
         if (searchBookByName.isPresent()) {
             throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
 
-
         }
         BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getBookName(),
                 book.getAuthorName(),

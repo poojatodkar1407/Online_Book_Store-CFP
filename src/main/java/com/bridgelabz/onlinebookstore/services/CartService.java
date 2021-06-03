@@ -51,14 +51,13 @@ public class CartService implements ICartService {
        UserDetailsModel findTheExistedUser = userDetailsRepository.findById(userId).
                orElseThrow(() ->new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND));
 
-        CartDetails cartDetails= cartRepository.findByUserDetailsModel(findTheExistedUser)
-                .orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.CART_NOT_PRESENT));
+//        CartDetails cartDetails= cartRepository.findByUserDetailsModel(findTheExistedUser)
+//                .orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.CART_NOT_PRESENT));
 
-        System.out.println("the book and cart details are :"+cartDetails.getBookCartDetails());
-        BookDetailsModel bookById = bookRepository.
+       BookDetailsModel bookById = bookRepository.
                 findById(cartDto.getCartId()).
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
-
+        CartDetails cartDetailsSave = new CartDetails();
         System.out.println(bookById);
 
         BookCartDetails bookCartDetails = new BookCartDetails(cartDto);
@@ -67,9 +66,17 @@ public class CartService implements ICartService {
 
         List<BookCartDetails> cartList = new ArrayList<>();
         cartList.add(bookCartDetails);
-        cartDetails.getBookCartDetails().add(bookCartDetails);
-        cartDetails.setBookCartDetails(cartList);
-        cartRepository.save(cartDetails);
+       // cartDetails.getBookCartDetails().add(bookCartDetails);
+        cartDetailsSave.setCartId(cartDto.getCartId());
+        cartDetailsSave.setQuantity(cartDto.getQuantity());
+        cartDetailsSave.setTotalPrice(cartDto.getTotalPrice());
+        //cartDetailsSave.setBookCartDetails(cartList);
+        cartDetailsSave.setUserDetailsModel(findTheExistedUser);
+
+
+       //cartDetails.setUserDetailsModel(findTheExistedUser);
+        //cartDetails.setBookCartDetails(cartList);
+        cartRepository.save(cartDetailsSave);
 
         bookCartDetails.setBookDetailsModel(bookById);
         System.out.println("Book Cart Details : "+bookCartDetails);
@@ -95,21 +102,21 @@ public class CartService implements ICartService {
         bookCartRepository.deleteById(id);
 
 
+
         return "book is removed from cart";
     }
 
     @Override
-    public List<BookCartDetails> showAllBooksInCart(String Token) {
+    public List<CartDetails> showAllBooksInCart(String Token) {
         UUID userId = jwtToken.decodeJWT(Token);
         Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
 
         if (!findTheExistedUser.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
-        return bookCartRepository.findAll().stream()
-                .map(bookCartDetails -> new BookCartDetails(bookCartDetails))
-                .collect(Collectors.toList());
-
+        List<CartDetails> cartDetailsListOfUserModel = cartRepository.findByUserDetailsModel(findTheExistedUser.get());
+        cartDetailsListOfUserModel.forEach(cartDetails -> System.out.println(cartDetails.toString()));
+        return cartDetailsListOfUserModel;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.bridgelabz.onlinebookstore.services;
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.bridgelabz.onlinebookstore.dto.UpDateCartDto;
 import com.bridgelabz.onlinebookstore.model.BookCartDetails;
+import com.bridgelabz.onlinebookstore.model.CartDetails;
 
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ICartService {
     String addToCart(CartDto cartDto, String token);
 
     String deleteCartItem(UUID id, String token);
-    List<BookCartDetails> showAllBooksInCart(String Token);
+    List<CartDetails> showAllBooksInCart(String Token);
 
     String updateQuantityAndPrice(UpDateCartDto upDateCartDto, String token);
 

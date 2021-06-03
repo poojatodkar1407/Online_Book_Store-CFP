@@ -14,7 +14,7 @@ import java.util.UUID;
 
 
 
-
+@ToString
 @Entity
 //@Table
 @Getter
@@ -30,14 +30,14 @@ public class CartDetails implements Serializable {
     public UUID cartId;
 
     public int quantity;
+    public double totalPrice;
 
-
-    @OneToMany()
+    @OneToMany(orphanRemoval = true)
     @Where(clause = "order_status=true")
-    @CollectionTable(joinColumns = @JoinColumn(name = "cartDetailsId"))
+    @JoinColumn(name = "bookdsetails")
     public List<BookCartDetails> bookCartDetails;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(referencedColumnName = "userId")
     public UserDetailsModel userDetailsModel;
 

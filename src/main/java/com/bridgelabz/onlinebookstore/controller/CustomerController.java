@@ -1,9 +1,21 @@
 package com.bridgelabz.onlinebookstore.controller;
 
+import com.bridgelabz.onlinebookstore.dto.CustomerDetailsDto;
+import com.bridgelabz.onlinebookstore.dto.ResponseDto;
+import com.bridgelabz.onlinebookstore.model.CustomerDetails;
+import com.bridgelabz.onlinebookstore.services.ICustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.Lifecycle;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -11,4 +23,35 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 public class CustomerController {
 
+    @Autowired
+    ICustomerService customerService;
+
+    @PostMapping("/addDetail_customer")
+    public ResponseEntity<ResponseDto> addCustomerDetails( @RequestBody @Valid CustomerDetailsDto customerDetailsDto,
+                                                          @RequestHeader(value = "token",required = false)String token,
+                                                          BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
+                    getDefaultMessage(),"100",null),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        CustomerDetails customerDetails =customerService.addCustomerDetails(customerDetailsDto,token);
+
+        return new ResponseEntity (new ResponseDto("CUSTOMER DETAILS ADDED SUCCESFULLY : ",
+                "200",customerDetails),
+                HttpStatus.CREATED);
+
+    }
+
+
+    @GetMapping("/getall_details")
+    public ResponseEntity<List<CustomerDetails>> getAllCustomerDetails(@RequestHeader(value = "token", required = false) String Token){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getAllCustumerDetails(Token));
+
+    }
+
+
 }
+
+
