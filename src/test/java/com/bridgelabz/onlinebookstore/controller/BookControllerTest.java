@@ -50,6 +50,7 @@ public class BookControllerTest {
     Gson gson = new Gson();
     List<BookDto> list = new ArrayList<>();
 
+
     @Test
     public void givenBookDetailsToAddInDatabase_WhenAdded_ThenReturnCorrectMessage() throws Exception {
         bookDto = new BookDto("Harry", "J K", "Devotional", 5, 700, 2, 1985);
@@ -63,21 +64,17 @@ public class BookControllerTest {
         Assert.assertEquals(message, new Gson().fromJson(mvcResult.getResponse().getContentAsString(), ResponseDto.class).getMessage());
     }
 
-//    @Test
-//    public void givenBookDetailsToAddInDatabase_WhenDataInvalid_ShouldThrowException() throws Exception {
-//
-//    }
+    @Test
+    public void givenBookDetailsToAddInDatabase_WhenDataInvalid_ShouldThrowException() throws Exception {
+        bookDto = new BookDto("Harry", "J K", "Devotional", 5, 700, 2, 1985);
+        String toJson = new Gson().toJson(bookDto);
+        System.out.println("the to json is "+toJson);
+        MvcResult mvcResult = this.mockMvc.perform(post("/book/addBook/")
+                .content(toJson)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+        System.out.println(mvcResult.getResponse());
+        String message="BOOK ADDED SUCCESFULLY : ";
+        Assert.assertNotEquals(message,new Gson().fromJson(mvcResult.getResponse().getContentAsString(), ResponseDto.class).getMessage());
+    }
 
-
-//    @Test
-//    void findAllBooks() throws Exception {
-//        List<BookDetailsModel> bookList = new ArrayList<>();
-//        BookDto bookDTO = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
-//
-//        BookDetailsModel bookDetails = new BookDetailsModel(bookDTO);
-//        bookList.add(bookDetails);
-//        when(bookService.showAllBooks()).thenReturn(bookList);
-//        this.mockMvc.perform(get("/getAllBooks")).andDo(print())
-//                .andExpect(status().isOk());
-//    }
 }

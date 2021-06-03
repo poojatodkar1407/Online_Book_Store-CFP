@@ -150,6 +150,7 @@ public class UserControllerTest {
                     .content(toJson)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andReturn();
+          // System.out.println(mvcResult.getResponse());
             Assert.assertTrue(message,mvcResult.getResponse().getContentAsString().contains("LOGIN SUCCESSFUL"));
         }
 
@@ -162,7 +163,7 @@ public class UserControllerTest {
         MvcResult mvcResult = this.mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson)).andReturn();
-        Assert.assertFalse(message, mvcResult.getResponse().getContentAsString().contains("Invalid Data!!!!! Please Enter Valid Data"));
+        Assert.assertEquals(message, mvcResult.getResponse().getContentAsString().contains("Invalid Data!!!!! Please Enter Valid Data"));
     }
 
     @Test
