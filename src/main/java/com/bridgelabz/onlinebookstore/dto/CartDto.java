@@ -1,8 +1,10 @@
 package com.bridgelabz.onlinebookstore.dto;
 
+import java.util.UUID;
+
 public class CartDto {
 
-    public Integer cartId;
+    public UUID cartId;
 
 
     public Integer quantity;
@@ -11,7 +13,7 @@ public class CartDto {
     public CartDto() {
     }
 
-    public CartDto(Integer cartId, Integer quantity,Double totalPrice) {
+    public CartDto(UUID cartId, Integer quantity,Double totalPrice) {
         this.cartId = cartId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;

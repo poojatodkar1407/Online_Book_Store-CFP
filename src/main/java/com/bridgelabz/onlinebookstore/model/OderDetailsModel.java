@@ -1,14 +1,20 @@
 package com.bridgelabz.onlinebookstore.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Table
 @Entity
 public class OderDetailsModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Type(type = "uuid-char")
+    public UUID id;
 
     @ManyToOne()
     @JoinColumn(name = "cartId")
@@ -26,3 +32,4 @@ public class OderDetailsModel {
     List<BookCartDetails> bookCartDetails;
 
 }
+

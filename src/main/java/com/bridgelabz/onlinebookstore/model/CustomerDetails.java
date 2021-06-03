@@ -19,7 +19,7 @@ public class CustomerDetails {
     public String city;
     public String landmark;
 
-  // public AddressType addressType;
+
 
 
     @ManyToOne()

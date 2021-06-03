@@ -1,8 +1,11 @@
 package com.bridgelabz.onlinebookstore.dto;
 
+import com.bridgelabz.onlinebookstore.model.BookCartDetails;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Data
 @Getter
@@ -22,4 +25,10 @@ public class ResponseDto {
         public ResponseDto(Object object){
             this.object = object;
         }
+
+    public ResponseDto(String message,Object object) {
+        this.message = message;
+        this.object = object;
+    }
+
 }

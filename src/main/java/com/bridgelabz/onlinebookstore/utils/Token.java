@@ -2,17 +2,14 @@ package com.bridgelabz.onlinebookstore.utils;
 
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.Date;
 import java.util.UUID;
 
-
+@Service
 public class Token {
-
-        @Autowired
-        FileProperties jwtProperties;
 
         public String generateLoginToken(UserDetailsModel userDetails) {
 

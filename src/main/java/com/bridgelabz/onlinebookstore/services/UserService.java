@@ -71,22 +71,11 @@ public class UserService implements IUserService {
     }
 
 
-
     @Override
      public String userLogin(UserLoginDto userLoginDto) {
-//        Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.emailID);
-//        if (userDetailsByEmail.isPresent()) {
-//            if(userDetailsByEmail.get().isVerified){
-//                boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
-//                if (password) {
-//                    String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
-//                    return tokenString;
-//                }
-//                throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
-
         System.out.println(userLoginDto.emailID);
         Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.getEmailID());
-        System.out.println("the opyional message is "+userDetailsByEmail);
+        System.out.println("the optional message is "+userDetailsByEmail);
         if (!userDetailsByEmail.isPresent()) {
             throw new UserException("Enter Registered Email", UserException.ExceptionType.EMAIL_NOT_FOUND);
         }
@@ -95,11 +84,9 @@ public class UserService implements IUserService {
             if (!password) {
                 throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
             }
-
             String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
             return tokenString;
         }
-      // throw new UserException("Enter Registered Email", UserException.ExceptionType.USER_NOT_FOUND);
         throw new UserException("Please verify your email before proceeding", UserException.ExceptionType.EMAIL_NOT_FOUND);
     }
 

@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -36,8 +37,8 @@ public class UserDetailsModel implements Serializable {
     public LocalDateTime createdAt = LocalDateTime.now();
     public LocalDateTime updatedAt;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
-//    public List<CustomerDetails> customerDetails;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
+    public List<CustomerDetails> customerDetails;
 
 
 
