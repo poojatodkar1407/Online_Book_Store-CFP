@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
+    public ResponseEntity login(@RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         System.out.println("the error part "+bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
             throw new UserException("Invalid Data!!!!! Please Enter Valid Data", UserException.ExceptionType.INVALID_DATA);
