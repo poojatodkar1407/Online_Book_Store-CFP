@@ -1,18 +1,14 @@
 package com.bridgelabz.onlinebookstore.model;
 
 
-import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
-
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
+import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;

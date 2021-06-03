@@ -19,12 +19,8 @@ public class BookService implements IBookService{
     @Override
     public BookDetailsModel addBook(BookDto book) {
         Optional<BookDetailsModel> searchBookByName = bookRepository.findByBookName(book.getBookName());
-        //Optional<BookDetailsModel> searchBookByAuther = bookRepository.findByAuthorName(book.getAuthorName());
-        //Optional<BookDetailsModel> search = bookRepository.findBookDetailsModelBy(book.getBookName(), book.getAuthorName());
-
         if (searchBookByName.isPresent()) {
             throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
-
 
         }
         BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getBookName(),

@@ -7,7 +7,6 @@ import com.bridgelabz.onlinebookstore.exception.BookStoreException;
 import com.bridgelabz.onlinebookstore.exception.UserException;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.bridgelabz.onlinebookstore.repository.UserDetailsRepository;
-import com.bridgelabz.onlinebookstore.services.IUserService;
 import com.bridgelabz.onlinebookstore.services.UserService;
 import com.bridgelabz.onlinebookstore.utils.FileProperties;
 import com.bridgelabz.onlinebookstore.utils.MailService;
@@ -59,7 +58,6 @@ public class UserServiceTest {
     @MockBean
     FileProperties fileProperties;
 
-    @Mock
     MailService mailService;
 
     @Mock
@@ -241,6 +239,3 @@ public class UserServiceTest {
         }
     }
 }
-
-
-

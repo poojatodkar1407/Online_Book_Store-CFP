@@ -17,10 +17,4 @@ public interface ICartService {
     String updateQuantityAndPrice(UpDateCartDto upDateCartDto, String token);
 
 
-
-
-
-
-
-
 }

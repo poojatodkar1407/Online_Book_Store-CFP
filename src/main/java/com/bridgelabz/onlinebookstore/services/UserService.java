@@ -73,7 +73,6 @@ public class UserService implements IUserService {
     }
 
 
-
     @Override
      public String userLogin(UserLoginDto userLoginDto) {
         System.out.println(userLoginDto.emailID);
@@ -87,7 +86,6 @@ public class UserService implements IUserService {
             if (!password) {
                 throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
             }
-
             String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
             return tokenString;
         }

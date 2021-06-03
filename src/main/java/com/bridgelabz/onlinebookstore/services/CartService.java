@@ -25,7 +25,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class CartService implements ICartService{
+public class CartService implements ICartService {
 
 
     Token jwtToken= new Token();

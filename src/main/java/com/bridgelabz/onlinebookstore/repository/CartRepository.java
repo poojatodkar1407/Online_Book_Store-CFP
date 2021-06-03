@@ -15,3 +15,4 @@ public interface CartRepository extends JpaRepository<CartDetails,UUID> {
         List<CartDetails>findByUserDetailsModel(UserDetailsModel userDetailsModel);
    //Optional<CartDetails> findByUserDetailsModel1(UserDetailsModel userDetailsModel);
  }
+

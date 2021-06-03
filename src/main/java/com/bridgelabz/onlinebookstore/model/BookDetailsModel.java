@@ -47,6 +47,7 @@ public class BookDetailsModel implements Serializable {
 // public List<BookCartDetails> bookCartDetails;
 
 
+
     public BookDetailsModel( String bookName, String authorName, String description, double bookPrice, double quantity, int rating, int publishingYear) {
 
         this.bookName = bookName;
