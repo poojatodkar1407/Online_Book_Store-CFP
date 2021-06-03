@@ -1,6 +1,5 @@
 package com.bridgelabz.onlinebookstore.repository;
 
-
 import com.bridgelabz.onlinebookstore.model.BookDetailsModel;
 import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
@@ -11,8 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CartRepository extends JpaRepository<CartDetails, UUID> {
-    Optional<CartDetails> findByUserDetailsModel(UserDetailsModel userDetails);
+public interface CartRepository extends JpaRepository<CartDetails,UUID> {
+    Optional<CartDetails> findByUserDetailsModel(UserDetailsModel userDetailsModel);
+ }
 
-
-}

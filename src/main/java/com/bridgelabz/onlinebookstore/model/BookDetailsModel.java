@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +24,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table
-public class BookDetailsModel {
+public class BookDetailsModel implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
@@ -41,8 +42,9 @@ public class BookDetailsModel {
     public LocalDateTime createdAt = LocalDateTime.now();
 
 
-//    @OneToMany(mappedBy = "bookDetails")
-//    List<BookCartDetails> bookCartDetails;
+
+// @OneToMany( mappedBy = "BookCartDetails", cascade=CascadeType.ALL)
+// public List<BookCartDetails> bookCartDetails;
 
 
 
@@ -55,6 +57,7 @@ public class BookDetailsModel {
         this.quantity = quantity;
         this.rating = rating;
         this.publishingYear = publishingYear;
+
     }
 
     public BookDetailsModel(BookDto bookDTO) {

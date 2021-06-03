@@ -1,11 +1,8 @@
 package com.bridgelabz.onlinebookstore.dto;
 
-import com.bridgelabz.onlinebookstore.model.BookCartDetails;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Data
 @Getter

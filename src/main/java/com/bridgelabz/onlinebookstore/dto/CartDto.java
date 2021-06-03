@@ -1,7 +1,13 @@
 package com.bridgelabz.onlinebookstore.dto;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Getter
+@Setter
 public class CartDto {
 
     public UUID cartId;

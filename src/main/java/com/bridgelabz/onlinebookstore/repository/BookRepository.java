@@ -11,7 +11,4 @@ import java.util.UUID;
 @Repository
 public interface BookRepository extends JpaRepository<BookDetailsModel,UUID> {
     Optional<BookDetailsModel> findByBookName(String bookName);
-
-
-
 }

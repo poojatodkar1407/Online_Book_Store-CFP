@@ -15,7 +15,9 @@ public class BookStoreException extends RuntimeException{
         USER_NOT_FOUND("user not found"),
         INVALID_USER_ID("user id you have given is incorrect"),
         USER_NOT_PRESENT("user is not present in database"),
-        BOOK_AlREADY_PRESENT("book is already added in database")
+        BOOK_AlREADY_PRESENT("book is already added in database"),
+        BOOK_NOT_FOUND("book is not found"),
+        CART_NOT_PRESENT("invalid cart id");
         ;
         public String errorMsg;
         ExceptionTypes(String errorMsg){

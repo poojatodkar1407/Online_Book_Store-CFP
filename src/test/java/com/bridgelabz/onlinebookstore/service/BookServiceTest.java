@@ -34,16 +34,6 @@ public class BookServiceTest {
 
     BookDto bookDto;
 
-//    @Test
-//    public void givenBookDetailsToAdd_WhenGetResponse_ShouldReturnBookDetails() {
-//        bookDto = new BookDto("Half Girlfriend", "Chetan Bhagat", "Fictional", 2, 300, 2, 2000);
-//        BookDetailsModel bookDetailsModel = new BookDetailsModel(bookDto);
-//        when(jwtToken.verifyToken(any())).thenReturn(1);
-//        when(userRepository.findById(any())).thenReturn(Optional.of(user));
-//        when(onlineBookStoreRepository.save(any())).thenReturn(bookDetails);
-//        String message = "ADDED SUCCESSFULLY";
-//        String saveBook = adminBookStoreService.saveBook("token", bookDTO);
-//        Assert.assertEquals(message, saveBook);
-//    }
+
 
 }

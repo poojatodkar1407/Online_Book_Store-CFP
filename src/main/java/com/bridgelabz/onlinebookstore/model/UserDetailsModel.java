@@ -37,8 +37,17 @@ public class UserDetailsModel implements Serializable {
     public LocalDateTime createdAt = LocalDateTime.now();
     public LocalDateTime updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
-    public List<CustomerDetails> customerDetails;
+//
+//   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerDetails")
+//    public List<CustomerDetails> customerDetails;
+
+
+
+//    @OneToMany(mappedBy = "oder")
+//    public List<OderDetailsModel> orderDetails;
+
+
+
 
 
 

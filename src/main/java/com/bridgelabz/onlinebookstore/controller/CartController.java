@@ -2,14 +2,17 @@ package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
+
+import com.bridgelabz.onlinebookstore.dto.UpDateCartDto;
 import com.bridgelabz.onlinebookstore.model.BookCartDetails;
-import com.bridgelabz.onlinebookstore.services.CartService;
+import com.bridgelabz.onlinebookstore.services.ICartService;
 import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,43 +21,48 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/cart")
+@ComponentScan
+@EnableAutoConfiguration
 public class CartController {
 
-//    @Autowired
-//    CartService cartService;
-//
-//    @Autowired
-//    Token token;
-//
-////    @PostMapping("/cart")
-////    public ResponseEntity<ResponseDto> addBooks(@Valid @RequestBody CartDto cartDto, @RequestHeader(value = "token") String token, BindingResult bindingResult) {
-////        if (bindingResult.hasErrors()) {
-////            return new ResponseEntity(bindingResult.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST);
-////        }
-////        String message = cartService.addToCart(cartDto,token);
-////        ResponseDto responseDto = new ResponseDto(message);
-////        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-////    }
-//
-//    @GetMapping("/allBooks/")
-//    public ResponseEntity<ResponseDto> fetchAllBooks(@RequestHeader(value = "token") String token) {
-//        List<BookCartDetails> list =  cartService.allCartItems(token);
-//        ResponseDto responseDTO = new ResponseDto("Response Successful", list);
-//        return new ResponseEntity(responseDTO, new HttpHeaders(), HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/update/")
-//    public ResponseEntity updateBookQuantity(@Valid @RequestBody CartDto cartDto, @RequestHeader(value = "token") String token) {
-//        String message = cartService.updateQuantityAndPrice(cartDto,token);
-//        ResponseDto responseDto = new ResponseDto(message);
-//        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping("/cart/{id}")
-//    public ResponseEntity deleteBook(@PathVariable UUID id) {
-//        String message = cartService.deleteCartItem(id);
-//        ResponseDto responseDto = new ResponseDto(message);
-//        return new ResponseEntity(responseDto, HttpStatus.OK);
-//    }
+    @Autowired
+    ICartService cartService;
+
+
+    Token token = new Token();
+
+    @PostMapping("/addtocart")
+    public ResponseEntity<ResponseDto> addBookToCart(@RequestBody CartDto cartDto,
+                                                     @RequestHeader(value = "token", required = false) String token) {
+        String message = cartService.addToCart(cartDto, token);
+        ResponseDto responseDto = new ResponseDto(message, "100", null);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/allbooksincart")
+    public ResponseEntity<List<BookCartDetails>> getAllBooksInCart(@RequestHeader(value = "token", required = false) String Token) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(cartService.showAllBooksInCart(Token));
+
+    }
+
+    @DeleteMapping("/cart/{id}")
+    public ResponseEntity deleteBook(@PathVariable UUID id,
+                                     @RequestHeader(value = "token", required = false) String Token) {
+        String message = cartService.deleteCartItem(id, Token);
+        ResponseDto responseDto = new ResponseDto(message);
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/updatecartofbook")
+    public ResponseEntity updateBookQuantity(@Valid @RequestBody UpDateCartDto updateCartDto,
+                                             @RequestHeader(value = "token") String token) {
+        String message = cartService.updateQuantityAndPrice(updateCartDto, token);
+        ResponseDto responseDto = new ResponseDto(message);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 
 }
+

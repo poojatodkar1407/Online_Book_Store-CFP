@@ -4,7 +4,6 @@ package com.bridgelabz.onlinebookstore.model;
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -52,4 +51,15 @@ public class BookCartDetails {
     public BookCartDetails() {
 
     }
+
+    public BookCartDetails(BookCartDetails bookCartDetails) {
+        this.cartDetailsId=bookCartDetails.getCartDetailsId();
+        this.quantity=bookCartDetails.getQuantity();
+        this.orderStatus=bookCartDetails.orderStatus;
+        this.totalPrice=bookCartDetails.getTotalPrice();
+        this.bookDetailsModel=bookCartDetails.getBookDetailsModel();
+        this.cartDetails=bookCartDetails.getCartDetails();
+        this.orderDetails=bookCartDetails.getOrderDetails();
+    }
 }
+
