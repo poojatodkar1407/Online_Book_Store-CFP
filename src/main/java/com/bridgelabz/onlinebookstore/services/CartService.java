@@ -120,7 +120,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String updateQuantityAndPrice(UpDateCartDto upDateCartDto, String token) {
+    public String updateQuantityAndPrice(CartDto cartDto, String token) {
 
         UUID userId = jwtToken.decodeJWT(token);
         Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
@@ -128,15 +128,17 @@ public class CartService implements ICartService {
         if (!findTheExistedUser.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
-        Optional<BookCartDetails> searchForACart = bookCartRepository.findById(upDateCartDto.getModeCartId());
+
+        Optional<BookCartDetails> searchForACart = bookCartRepository.findById(cartDto.getCartId());
+
 
         if (!searchForACart.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.CART_NOT_PRESENT);
         }
 
 
-        searchForACart.get().setQuantity(upDateCartDto.getQuantity());
-        searchForACart.get().setTotalPrice(upDateCartDto.getTotalPrice());
+        searchForACart.get().setQuantity(cartDto.getQuantity());
+        searchForACart.get().setTotalPrice(cartDto.getTotalPrice());
         BookCartDetails save = bookCartRepository.save(searchForACart.get());
 
         return "Quantity of book and its price has updated";

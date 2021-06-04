@@ -30,7 +30,7 @@ public class UserController {
     IUserService userService;
 
 
-    Token jwtToken=new Token();
+
 
     @GetMapping("/welcome")
     public String welcome(){
@@ -69,7 +69,10 @@ public class UserController {
         }
         String userLogin = userService.userLogin(userLoginDTO);
         httpServletResponse.setHeader("Authorization", userLogin);
-        return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
+//        return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
+        return new ResponseEntity (new ResponseDto("LOGIN SUCCESSFUL",
+                "200",userLogin),
+                HttpStatus.OK);
     }
 
     @PostMapping("/forget/password")

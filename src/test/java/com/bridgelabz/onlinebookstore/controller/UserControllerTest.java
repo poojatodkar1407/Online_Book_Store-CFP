@@ -168,7 +168,7 @@ public class UserControllerTest {
 
     @Test
     void givenEmailId_WhenProper_ShouldSendResetPasswordLink() throws Exception{
-        String emailId = "mounamc267@gmail.com";
+        String emailId = "parhiankita@gmail.com";
         String message = "Reset Password Link Has Been Sent To Your Email Address";
         MvcResult mvcResult =this.mockMvc.perform(post("/user/forget/password")
                 .param("emailID", emailId)).andReturn();
@@ -180,7 +180,7 @@ public class UserControllerTest {
 
     @Test
     void givenPassword_WhenProper_ShouldReturnProperMessage() throws Exception{
-        String password = "Attitude@007";
+        String password = "ankita@9713";
         String urlToken = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OWRjYWZlMi00Nzk0LTQwMDctYjU4NS00ZjVmNDhkYThiMDQiLCJzdWIiOiJNb3VuYSIsImlhdCI6MTYyMjQ0MzY4NCwiZXhwIjoxNjIyNTQzNjg0fQ.zDCu3Ka9Tslm2wwx8zzXOexVFG-NCfrbOOQohRBjxbg";
         String message = "Password Has Been Reset";
         MvcResult mvcResult = this.mockMvc.perform(post("/user/reset/password/")

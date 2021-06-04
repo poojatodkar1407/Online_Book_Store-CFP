@@ -1,20 +1,33 @@
 package com.bridgelabz.onlinebookstore.exception;
 
 public class UserException extends RuntimeException {
+
+    public ExceptionType exceptionType;
+
+    public UserException(ExceptionType exceptionType) {
+        this.exceptionType = exceptionType;
+    }
+
     public enum ExceptionType {
-        USER_ALREADY_PRESENT,
-        EMAIL_NOT_FOUND,
-        PASSWORD_INVALID,
-        ALREADY_VERIFIED,
-        INVALID_DATA,
-        USER_NOT_FOUND,
-    }
+        EMAIL_NOT_FOUND("Enter Registered Email"),
+        PASSWORD_INVALID("Invalid Password!!!Please Enter Correct Password"),
+        INVALID_DATA("Please verify your email before proceeding");
 
-    public UserException.ExceptionType type;
+        public String error;
 
-    public UserException(String message, UserException.ExceptionType type) {
+        ExceptionType(String errorMsg) {
+            this.error = error;
+        }
+
+        }
+    public UserException(String message) {
         super(message);
-        this.type = type;
+
     }
+
+
+
+
+
 }
 

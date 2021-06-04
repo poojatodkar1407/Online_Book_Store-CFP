@@ -79,24 +79,24 @@ public class UserService implements IUserService {
         Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.getEmailID());
         System.out.println("the optional message is "+userDetailsByEmail);
         if (!userDetailsByEmail.isPresent()) {
-            throw new UserException("Enter Registered Email", UserException.ExceptionType.EMAIL_NOT_FOUND);
+            throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
         }
         if(userDetailsByEmail.get().isVerified){
             boolean password = bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsByEmail.get().password);
             if (!password) {
-                throw new UserException("Invalid Password!!!Please Enter Correct Password",UserException.ExceptionType.PASSWORD_INVALID);
+                throw new UserException(UserException.ExceptionType.PASSWORD_INVALID);
             }
             String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
             return tokenString;
         }
-        throw new UserException("Please verify your email before proceeding", UserException.ExceptionType.EMAIL_NOT_FOUND);
+        throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
     }
 
 
 
     @Override
     public String resetPasswordLink(String email) throws MessagingException {
-        UserDetailsModel user = userDetailsRepository.findByEmailID(email).orElseThrow(() -> new UserException("Email Not Found", UserException.ExceptionType.EMAIL_NOT_FOUND));
+        UserDetailsModel user = userDetailsRepository.findByEmailID(email).orElseThrow(() -> new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
         String urlToken = "Click on below link to Reset your Password \n"
                 + "http://localhost:8080/user/reset/password/" + tokenGenerate;
@@ -110,7 +110,7 @@ public class UserService implements IUserService {
         System.out.println(urlToken);
         UUID userId = jwtToken.decodeJWT(urlToken);
         System.out.println(userId);
-        UserDetailsModel userDetails = userDetailsRepository.findById(userId).orElseThrow(() -> new UserException("User Not Found", UserException.ExceptionType.INVALID_DATA));
+        UserDetailsModel userDetails = userDetailsRepository.findById(userId).orElseThrow(() -> new UserException(UserException.ExceptionType.INVALID_DATA));
         String encodePassword = bCryptPasswordEncoder.encode(password);
         userDetails.password = encodePassword;
         userDetailsRepository.save(userDetails);

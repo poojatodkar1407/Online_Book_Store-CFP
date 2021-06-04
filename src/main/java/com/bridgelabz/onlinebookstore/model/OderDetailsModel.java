@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,13 @@ public class OderDetailsModel implements Serializable {
     @Type(type = "uuid-char")
     public UUID id;
 
+    public Integer orderId;
+    public Double totalPrice;
+
+    public LocalDate orderPlacedDate;
+
+
+
     @ManyToOne
     @JoinColumn(name = "cartId")
     public CartDetails cart;
@@ -37,8 +45,8 @@ public class OderDetailsModel implements Serializable {
     @JoinColumn(name = "customer")
     public CustomerDetails customer;
 
-//    @OneToMany(mappedBy = "orderDetails")
-//    List<BookCartDetails> bookCartDetails;
+    @OneToMany(mappedBy = "orderDetails")
+   List<BookCartDetails> bookCartDetails;
 
 }
 

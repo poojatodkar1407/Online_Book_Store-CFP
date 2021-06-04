@@ -36,6 +36,7 @@ public class CustomerService implements ICustomerService{
         List<CustomerDetails> listOfCustomerDetails = new ArrayList<>();
         CustomerDetails customerDetails = new CustomerDetails(customerDetailsDto.pinCode,
                                                               customerDetailsDto.locality,
+                                                              customerDetailsDto.address,
                                                               customerDetailsDto.city,
                                                               customerDetailsDto.landmark,
                                                               customerDetailsDto.addressType);

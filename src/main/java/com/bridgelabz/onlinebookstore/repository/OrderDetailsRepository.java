@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface OrderDetailsRepository extends JpaRepository<OderDetailsModel, UUID> {
      List<OderDetailsModel> findOderDetailsModelByUser(UserDetailsModel userDetailsModel);
+     Optional<OderDetailsModel> findByOrderId(Integer orderId);
 }
 

@@ -14,7 +14,7 @@ public interface ICartService {
     String deleteCartItem(UUID id, String token);
     List<CartDetails> showAllBooksInCart(String Token);
 
-    String updateQuantityAndPrice(UpDateCartDto upDateCartDto, String token);
+    String updateQuantityAndPrice(CartDto cartDto, String token);
 
 
 }
