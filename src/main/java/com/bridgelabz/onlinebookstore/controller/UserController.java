@@ -60,12 +60,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-<<<<<<< HEAD
-    public ResponseEntity login(@RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
-=======
-    public ResponseEntity<ResponseDto> login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
->>>>>>> 5f8b8947ebb504b6ec737da47830625557f81d21
-        System.out.println("the error part "+bindingResult.hasErrors());
+    public ResponseEntity<ResponseDto> login( @RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
                     getDefaultMessage(),"100",null),

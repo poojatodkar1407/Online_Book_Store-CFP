@@ -190,12 +190,4 @@ public class BookServiceTest {
         int size = bookList.size();
         Assert.assertEquals(2, size);
     }
-
-
-
-
-
-
-
-
 }

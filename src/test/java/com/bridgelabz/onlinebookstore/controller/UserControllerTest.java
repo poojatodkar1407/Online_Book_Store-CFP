@@ -156,14 +156,14 @@ public class UserControllerTest {
 
     @Test
     public void givenUserDetailsToLoginUser_WhenInvalidData_ShouldThrowException() throws Exception {
-        userLoginDto.emailID="mounamc267@gmail.com";
-        userLoginDto.password="Attitude@007";
+        userLoginDto.emailID="parhiankita@gmail.com";
+        userLoginDto.password="ankita@9713";
         String toJson = new Gson().toJson(userLoginDto);
         String message = "LOGIN SUCCESSFUL";
         MvcResult mvcResult = this.mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson)).andReturn();
-        Assert.assertEquals(message, mvcResult.getResponse().getContentAsString().contains("Invalid Data!!!!! Please Enter Valid Data"));
+        Assert.assertNotEquals(message, mvcResult.getResponse().getContentAsString().contains("Invalid Data!!!!! Please Enter Valid Data"));
     }
 
     @Test
