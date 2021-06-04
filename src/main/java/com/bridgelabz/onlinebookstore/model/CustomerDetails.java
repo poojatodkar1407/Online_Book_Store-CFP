@@ -50,10 +50,11 @@ public class CustomerDetails implements Serializable {
     }
 
 
-    public CustomerDetails(String pinCode, String locality, String city, String landmark, String addressType) {
+    public CustomerDetails(String pinCode, String locality,String address, String city, String landmark, String addressType) {
 
         this.pinCode=pinCode;
         this.locality=locality;
+        this.address=address;
         this.city=city;
         this.landmark=landmark;
         this.addressType=addressType;

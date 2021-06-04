@@ -30,7 +30,7 @@ public class UserController {
     IUserService userService;
 
 
-    Token jwtToken=new Token();
+
 
     @GetMapping("/welcome")
     public String welcome(){
