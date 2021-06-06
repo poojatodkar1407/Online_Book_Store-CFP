@@ -60,8 +60,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login(@Valid @RequestBody UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
-        System.out.println("the error part "+bindingResult.hasErrors());
+    public ResponseEntity<ResponseDto> login( @RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
                     getDefaultMessage(),"100",null),
@@ -70,7 +69,10 @@ public class UserController {
         }
         String userLogin = userService.userLogin(userLoginDTO);
         httpServletResponse.setHeader("Authorization", userLogin);
-        return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
+//        return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
+        return new ResponseEntity (new ResponseDto("LOGIN SUCCESSFUL",
+                "200",userLogin),
+                HttpStatus.OK);
     }
 
     @PostMapping("/forget/password")

@@ -23,13 +23,14 @@ public class BookService implements IBookService{
             throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
 
         }
-        BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getBookName(),
+        BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getImage(),book.getBookName(),
                 book.getAuthorName(),
                 book.getDescription(),
                 book.getBookPrice(),
                 book.getQuantity(),
                 book.getRating(),
-                book.getPublishingYear());
+                book.getPublishingYear()
+                );
 
         BookDetailsModel saveBookToDataBsae = bookRepository.save(bookDetailsModel);
         return  saveBookToDataBsae;

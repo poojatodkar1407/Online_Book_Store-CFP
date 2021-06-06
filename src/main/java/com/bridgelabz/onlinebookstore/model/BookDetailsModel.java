@@ -32,6 +32,7 @@ public class BookDetailsModel implements Serializable {
     @Type(type = "uuid-char")
     public UUID bookId;
 
+    public String image;
     public String bookName;
     public String authorName;
     public String description;
@@ -48,8 +49,8 @@ public class BookDetailsModel implements Serializable {
 
 
 
-    public BookDetailsModel( String bookName, String authorName, String description, double bookPrice, double quantity, int rating, int publishingYear) {
-
+    public BookDetailsModel( String image,String bookName, String authorName, String description, double bookPrice, double quantity, int rating, int publishingYear) {
+        this.image=image;
         this.bookName = bookName;
         this.authorName = authorName;
         this.description = description;
@@ -68,6 +69,7 @@ public class BookDetailsModel implements Serializable {
         this.quantity = bookDTO.quantity;
         this.description = bookDTO.description;
         this.publishingYear = bookDTO.publishingYear;
+        this.image=bookDTO.image;
     }
 
 
@@ -81,6 +83,7 @@ public class BookDetailsModel implements Serializable {
         this.description =bookDetailsModel.getDescription();
         this.publishingYear=bookDetailsModel.getPublishingYear();
         this.createdAt=bookDetailsModel.getCreatedAt();
+        this.image=bookDetailsModel.getImage();
     }
 
 

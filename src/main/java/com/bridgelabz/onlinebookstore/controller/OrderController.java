@@ -22,12 +22,12 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-    @PostMapping("/addorder/{totalPrice}")
-    public ResponseEntity<ResponseDto>  addAnOrder(@PathVariable Double totalPrice,
+    @PostMapping("/addorder/")
+    public ResponseEntity<ResponseDto>  addAnOrder(@RequestParam Double totalPrice,
                                                    @RequestHeader(value = "token", required = false) String token){
 
         String oderDetailsModelMessage=orderService.placeAnOrder(totalPrice,token);
-        return new ResponseEntity (new ResponseDto("Order Placed succesFully : ",
+        return new ResponseEntity (new ResponseDto("Order Placed succesfully : ",
                 "200",oderDetailsModelMessage),
                 HttpStatus.CREATED);
 

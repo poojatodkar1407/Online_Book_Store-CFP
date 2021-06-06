@@ -82,10 +82,10 @@ public class UserServiceTest {
 
     @Test
     void givenUserDetails_WhenAdded_ShouldReturnEqual() throws Exception {
-        userDetailsDto.fullName="Ankita Parhi";
-        userDetailsDto.emailID="parhiankita@gmail.com";
-        userDetailsDto.password="Ankita@9713";
-        userDetailsDto.phoneNumber="917077757574";
+        userDetailsDto.fullName="Yenner";
+        userDetailsDto.emailID="yennefer9713@gmail.com";
+        userDetailsDto.password="Skyispink@98";
+        userDetailsDto.phoneNumber="919665592028";
 
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
 
@@ -112,10 +112,10 @@ public class UserServiceTest {
     @Test
     void givenUserDetails_WhenUserAlreadyPresent_ShouldThrowException() throws Exception {
 
-        userDetailsDto.fullName="Ankita Parhi";
-        userDetailsDto.emailID="parhiankita@gmail.com";
-        userDetailsDto.password="Ankita@9713";
-        userDetailsDto.phoneNumber="917077757574";
+        userDetailsDto.fullName="Yenner";
+        userDetailsDto.emailID="yennefer9713@gmail.com";
+        userDetailsDto.password="Skyispink@98";
+        userDetailsDto.phoneNumber="919665592028";
 
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
         ;
@@ -141,11 +141,11 @@ public class UserServiceTest {
 
     @Test
     void givenUserDetailsToLoginUser_WhenUserLoggedIn_ShouldReturnCorrectMessage() {
-        userLoginDto.emailID="parhiankita@gmail.com";
-        userLoginDto.password="Ankita@9713";
+        userLoginDto.emailID="yennefer9713@gmail.com";
+        userLoginDto.password="Skyispink@98";
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
         userDetailsModel.isVerified = true;
-        UserLoginDto userLoginDto = new UserLoginDto("shamalpatil1998@gmail.com", "Paju@98");
+        UserLoginDto userLoginDto = new UserLoginDto("yennefer9713@gmail.com", "Skyispink@98");
         when(userDetailsRepository.findByEmailID(any())).thenReturn(java.util.Optional.of(userDetailsModel));
         when(bCryptPasswordEncoder.matches(any(), any())).thenReturn(true);
         when(fileProperties.getJwtExpirationMs()).thenReturn(86400000);
@@ -156,8 +156,8 @@ public class UserServiceTest {
 
     @Test
     void givenUserDetailsToLoginUser_WhenIncorrectPasswordEntered_ShouldThrowException() {
-        userLoginDto.emailID="parhiankita@gmail.com";
-        userLoginDto.password="Ankita@9713";
+        userLoginDto.emailID="yennefer9713@gmail.com";
+        userLoginDto.password="Skyispink@98";
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
         userDetailsModel.isVerified = true;
         try {
@@ -166,28 +166,28 @@ public class UserServiceTest {
             when(bCryptPasswordEncoder.matches(userLoginDto.password, userDetailsModel.password)).thenReturn(false);
             userService.userLogin(userLoginDto);
         } catch (UserException ex) {
-            Assert.assertEquals(UserException.ExceptionType.PASSWORD_INVALID, ex.type);
+            Assert.assertEquals(UserException.ExceptionType.PASSWORD_INVALID, ex.exceptionType);
         }
     }
     @Test
     void givenUserDetailsToLoginUser_WhenIncorrectEmailEntered_ShouldThrowException() {
-        userLoginDto.emailID="parhiankita@gmail.com";
-        userLoginDto.password="Ankita@9713";
+        userLoginDto.emailID="yennefer9713@gmail.com";
+        userLoginDto.password="Skyispink@98";
         UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
         try {
-            when(userDetailsRepository.findByEmailID(userLoginDto.emailID)).thenThrow(new UserException("Enter Registered Email", UserException.ExceptionType.EMAIL_NOT_FOUND));
+            when(userDetailsRepository.findByEmailID(userLoginDto.emailID)).thenThrow(new UserException( UserException.ExceptionType.EMAIL_NOT_FOUND));
             userService.userLogin(userLoginDto);
         } catch (UserException ex) {
-            Assert.assertEquals(UserException.ExceptionType.EMAIL_NOT_FOUND, ex.type);
+            Assert.assertEquals(UserException.ExceptionType.EMAIL_NOT_FOUND, ex.exceptionType);
         }
     }
 
     @Test
     public void givenUserDetails_WhenUserResetThePassword_ShouldReturnMessage() {
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OWRjYWZlMi00Nzk0LTQwMDctYjU4NS00ZjVmNDhkYThiMDQiLCJzdWIiOiJNb3VuYSIsImlhdCI6MTYyMjQ0MzY4NCwiZXhwIjoxNjIyNTQzNjg0fQ.zDCu3Ka9Tslm2wwx8zzXOexVFG-NCfrbOOQohRBjxbg";
-        String password = "Attitude@007";
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YjFhY2ZlMy0xNDkxLTQ5N2UtOTUyNi1hZDVlYTA4NjU1ZmYiLCJzdWIiOiJZZW5uZXIiLCJpYXQiOjE2MjI4Mjc0MTMsImV4cCI6MTYyMjkyNzQxM30.TleAMgju7kHBU2jdKA6jm_bHkO3eGt-vq3rTgZwudns";
+        String password = "Skyispink@98";
         String message = "Password Has Been Reset";
-        when(jwtToken.decodeJWT(token)).thenReturn(UUID.fromString("1ad2bee2-9b32-4e59-966f-c124f1172ef0"));
+        when(jwtToken.decodeJWT(token)).thenReturn(UUID.fromString("6b1acfe3-1491-497e-9526-ad5ea08655ff"));
         when(userRepository.findById(any())).thenReturn(Optional.of(userDetailsModel));
         when(bCryptPasswordEncoder.encode(password)).thenReturn(password);
         when(userRepository.save(any())).thenReturn(userDetailsModel);
@@ -197,24 +197,24 @@ public class UserServiceTest {
 
     @Test
     public void givenUserDetails_WhenUserResetPassword_ShouldReturnResetPasswordLinkMessage() throws MessagingException {
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OWRjYWZlMi00Nzk0LTQwMDctYjU4NS00ZjVmNDhkYThiMDQiLCJzdWIiOiJNb3VuYSIsImlhdCI6MTYyMjQ0MzY4NCwiZXhwIjoxNjIyNTQzNjg0fQ.zDCu3Ka9Tslm2wwx8zzXOexVFG-NCfrbOOQohRBjxbg";
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YjFhY2ZlMy0xNDkxLTQ5N2UtOTUyNi1hZDVlYTA4NjU1ZmYiLCJzdWIiOiJZZW5uZXIiLCJpYXQiOjE2MjI4Mjc0MTMsImV4cCI6MTYyMjkyNzQxM30.TleAMgju7kHBU2jdKA6jm_bHkO3eGt-vq3rTgZwudns";
         String message ="Reset Password Link Has Been Sent To Your Email Address";
-        when(userRepository.findByEmailID("mounamc267@gmail.com")).thenReturn(Optional.of(userDetailsModel));
+        when(userRepository.findByEmailID("yennefer9713@gmail.com")).thenReturn(Optional.of(userDetailsModel));
         when(jwtToken.generateVerificationToken(any())).thenReturn(String.valueOf(userDetailsModel));
         mailService.sendMail(token,"Reset password",userDetailsModel.emailID);
-        String user = userService.resetPasswordLink("mounamc267@gmail.com");
+        String user = userService.resetPasswordLink("yennefer971@gmail.com");
         Assert.assertEquals(message,user);
     }
 
     @Test
     public void givenUserMailId_WhenUserResetPassword_ShouldReturnException() throws  MessagingException {
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3OWRjYWZlMi00Nzk0LTQwMDctYjU4NS00ZjVmNDhkYThiMDQiLCJzdWIiOiJNb3VuYSIsImlhdCI6MTYyMjQ0MzY4NCwiZXhwIjoxNjIyNTQzNjg0fQ.zDCu3Ka9Tslm2wwx8zzXOexVFG-NCfrbOOQohRBjxbg";
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YjFhY2ZlMy0xNDkxLTQ5N2UtOTUyNi1hZDVlYTA4NjU1ZmYiLCJzdWIiOiJZZW5uZXIiLCJpYXQiOjE2MjI4Mjc0MTMsImV4cCI6MTYyMjkyNzQxM30.TleAMgju7kHBU2jdKA6jm_bHkO3eGt-vq3rTgZwudns";
         String message ="Reset Password Link Has Been Sent To Your Email Address";
         try {
-            when(userRepository.findByEmailID("Ankitha@gmail.com")).thenReturn(Optional.of(userDetailsModel));
+            when(userRepository.findByEmailID("yennefer9713@gmail.com")).thenReturn(Optional.of(userDetailsModel));
             when(jwtToken.generateVerificationToken(any())).thenReturn(String.valueOf(userDetailsModel));
             mailService.sendMail(token, "Reset password", userDetailsModel.emailID);
-            String user = userService.resetPasswordLink("Ankitha@gmail.com");
+            String user = userService.resetPasswordLink("yennefer9713@gmail.com");
             Assert.assertEquals(message, user);
         }
         catch(Exception e){
@@ -228,10 +228,10 @@ public class UserServiceTest {
         String token = "zDCu3Ka9Tslm2wwx8zzXOexVFG-NCfrbOOQohRBjxbg";
         String message ="Reset Password Link Has Been Sent To Your Email Address";
         try {
-            when(userRepository.findByEmailID("mounamc267@gmail.com")).thenReturn(Optional.of(userDetailsModel));
+            when(userRepository.findByEmailID("yennefer9713@gmail.com")).thenReturn(Optional.of(userDetailsModel));
             when(jwtToken.generateVerificationToken(any())).thenReturn(String.valueOf(userDetailsModel));
             mailService.sendMail(token, "Reset password", userDetailsModel.emailID);
-            String user = userService.resetPasswordLink("mounamc267@gmail.com");
+            String user = userService.resetPasswordLink("yennefer9713@gmail.com");
             Assert.assertEquals(message, user);
         }
         catch(Exception e){

@@ -18,5 +18,10 @@ public class BookStoreGlobalExceptionHandler {
                                                               null,null),
                                                                 HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<ResponseDto> userExceptionHandler(UserException userException) {
+        log.error("Exception Occurred : " +userException.exceptionType.error);
+        return new ResponseEntity<ResponseDto>(new ResponseDto(userException.exceptionType.error, null,null),HttpStatus.BAD_REQUEST);
+    }
 
 }

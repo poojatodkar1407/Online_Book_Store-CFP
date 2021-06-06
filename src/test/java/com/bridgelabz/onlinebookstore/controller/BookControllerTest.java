@@ -53,7 +53,7 @@ public class BookControllerTest {
 
     @Test
     public void givenBookDetailsToAddInDatabase_WhenAdded_ThenReturnCorrectMessage() throws Exception {
-        bookDto = new BookDto("Harry", "J K", "Devotional", 5, 700, 2, 1985);
+        bookDto = new BookDto("","Harry", "J K", "Devotional", 5, 700, 2, 1985);
         String toJson = new Gson().toJson(bookDto);
         System.out.println("the to json is " + toJson);
         MvcResult mvcResult = this.mockMvc.perform(post("/book/addBook/")
@@ -66,7 +66,7 @@ public class BookControllerTest {
 
     @Test
     public void givenBookDetailsToAddInDatabase_WhenDataInvalid_ShouldThrowException() throws Exception {
-        bookDto = new BookDto("Harry", "J K", "Devotional", 5, 700, 2, 1985);
+        bookDto = new BookDto("","Harry", "J K", "Devotional", 5, 700, 2, 1985);
         String toJson = new Gson().toJson(bookDto);
         System.out.println("the to json is "+toJson);
         MvcResult mvcResult = this.mockMvc.perform(post("/book/addBook/")
