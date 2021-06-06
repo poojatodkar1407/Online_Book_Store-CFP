@@ -6,7 +6,6 @@ import com.bridgelabz.onlinebookstore.dto.ResponseDto;
 import com.bridgelabz.onlinebookstore.exception.BookStoreException;
 import com.bridgelabz.onlinebookstore.repository.CartRepository;
 import com.bridgelabz.onlinebookstore.services.ICartService;
-import com.bridgelabz.onlinebookstore.services.ICustomerService;
 import com.bridgelabz.onlinebookstore.utils.FileProperties;
 import com.google.gson.Gson;
 import org.junit.Assert;
@@ -24,9 +23,7 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -66,25 +63,25 @@ public class CartControllerTest {
         Assert.assertEquals("200", new Gson().fromJson(mvcResult.getResponse().getContentAsString(), ResponseDto.class).getStatusCode());
     }
 
-//    @Test
-//    void givenCustomerDetailsToAddInDatabase_WhenUserFound_ShouldThrowException() throws Exception {
-//        try {
-//            when(cartService.addCustomerDetails(any(), any())).thenThrow(new BookStoreException("user not found"));
-//            this.mockMvc.perform(post("/customer/addDetail_customer")).andReturn();
-//        } catch (BookStoreException e) {
-//            Assert.assertSame("user not found", e.getMessage());
-//        }
-//    }
+    @Test
+    void givenBookDetailsAndCartDetailsToAddInDatabase_WhenUserFound_ShouldThrowException() throws Exception {
+        try {
+            when(cartService.addToCart(any(), any())).thenThrow(new BookStoreException("user not found"));
+            this.mockMvc.perform(post("/customer/addDetail_customer")).andReturn();
+        } catch (BookStoreException e) {
+            Assert.assertSame("user not found", e.getMessage());
+        }
+    }
 
     @Test
-    public void givenBookDetailsAndCartDetailsToAddInDatabase_WhenAdded_ThenReturnStatus() throws Exception {
+    public void givenBookDetailsAndCartDetailsToAddInDatabase_WhenCartIsEmpty_ThenReturnStatus() throws Exception {
         httpHeaders.set("token","eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzZGM4YTQ4MS02NGIyLTQzMDQtODBhMi00M2I0ZmU5YzAwZjIiLCJzdWIiOiJTaGFtYWwgUGF0aWwiLCJpYXQiOjE2MjI4ODQ4NDMsImV4cCI6MTYyMjk4NDg0M30.xxxUkzp36rEJZfaD2rzM5jdsRH0Vs4eZA0OATZlN7yQ");
         CartDto cartDto = new CartDto();
         cartDto.setCartId(UUID.fromString("8a805bb6-e07a-48b9-91da-262a50cce86"));
         cartDto.setQuantity(2);
         cartDto.setTotalPrice(500.00);
         String stringConvertDto = gson.toJson(cartDto);
-        String message = "Book Added To Cart Successfully ";
+        String message = "Cart Is Empty ";
 
         MvcResult mvcResult = this.mockMvc.perform(post("/cart/addtocart")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +89,7 @@ public class CartControllerTest {
                 .characterEncoding("utf-8"))
                 .andReturn();
         String response = mvcResult.getResponse().getContentAsString();
-        Assert.assertNotEquals("200", new Gson().fromJson(mvcResult.getResponse().getContentAsString(), ResponseDto.class).getStatusCode());
+        Assert.assertNotEquals(message, new Gson().fromJson(mvcResult.getResponse().getContentAsString(), ResponseDto.class).getStatusCode());
     }
 
 }

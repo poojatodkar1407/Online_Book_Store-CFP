@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
@@ -23,6 +24,10 @@ public class BookDto {
 
     @Pattern(regexp = "^[A-Za-z. ]+[ ]*[A-Za-z.]*$", message = "Please provide proper author name")
     public String authorName;
+
+    @NotNull
+    @NotEmpty
+    public String image;
 
 
     @Length(min = 1, max = 300, message = "Description should between 1-300 characters")
@@ -40,7 +45,7 @@ public class BookDto {
     @Range(min = 999, max = 2020, message = "Year should be between 999 and 2020")
     public int publishingYear;
 
-    public BookDto(String bookName, String authorName, String description,int rating, double bookPrice, double quantity, int publishingYear) {
+    public BookDto(String bookName, String authorName,String image,String description,int rating, double bookPrice, double quantity, int publishingYear) {
         this.bookName = bookName;
         this.authorName = authorName;
         this.bookPrice = bookPrice;
@@ -48,6 +53,7 @@ public class BookDto {
         this.quantity = quantity;
         this.description = description;
         this.publishingYear = publishingYear;
+        this.image=image;
     }
 
     public BookDto(BookDetailsModel bookDetailsModel) {
@@ -58,6 +64,8 @@ public class BookDto {
         this.quantity=bookDetailsModel.getQuantity();
         this.description=bookDetailsModel.getDescription();
         this.publishingYear=bookDetailsModel.getPublishingYear();
+        this.image=bookDetailsModel.getImage();
+
 
     }
 }

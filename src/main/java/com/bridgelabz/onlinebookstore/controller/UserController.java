@@ -6,8 +6,6 @@ import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.bridgelabz.onlinebookstore.services.IUserService;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
-import com.bridgelabz.onlinebookstore.exception.UserException;
-import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
 
 
 @RestController
@@ -69,7 +66,6 @@ public class UserController {
         }
         String userLogin = userService.userLogin(userLoginDTO);
         httpServletResponse.setHeader("Authorization", userLogin);
-//        return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
         return new ResponseEntity (new ResponseDto("LOGIN SUCCESSFUL",
                 "200",userLogin),
                 HttpStatus.OK);

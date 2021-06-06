@@ -2,10 +2,6 @@ package com.bridgelabz.onlinebookstore.model;
 
 
 import com.bridgelabz.onlinebookstore.dto.CartDto;
-import com.bridgelabz.onlinebookstore.model.BookDetailsModel;
-import com.bridgelabz.onlinebookstore.model.CartDetails;
-import com.bridgelabz.onlinebookstore.model.OderDetailsModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;

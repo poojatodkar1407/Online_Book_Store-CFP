@@ -19,17 +19,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -56,7 +53,7 @@ public class BookServiceTest {
 
     @Test
     void givenBookDetails_WhenGetResponse_ShouldReturnBookDetails() {
-        BookDto bookDTO = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDTO = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg","Love Story", 3, 200, 2, 2020);
         BookDetailsModel givenBook = new BookDetailsModel(bookDTO);
         try{
             when(bookRepository.findByBookName(any())).thenReturn(java.util.Optional.of(givenBook));
@@ -77,7 +74,7 @@ public class BookServiceTest {
 
     @Test
     void givenBookDetails_WhenBookNameAlreadyPresent_ShouldReturnException() {
-        BookDto bookDTO = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDTO = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
         BookDetailsModel givenBook = new BookDetailsModel(bookDTO);
 
         String message="Book Already present";
@@ -102,7 +99,7 @@ public class BookServiceTest {
     @Test
     void getAllBooks() {
         List<BookDetailsModel> bookList = new ArrayList<>();
-        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
         BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
         bookList.add(bookDetails);
         when(bookService.showAllBooks()).thenReturn(bookList);
@@ -124,8 +121,8 @@ public class BookServiceTest {
     @Test
     void givenGetAllBooks_LowToHigh_ReturnBookDetails() {
         List<BookDetailsModel> bookList = new ArrayList<>();
-        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
-        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks","img1.jpg", "Love Story", 4, 300, 1, 1998);
         BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
         BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
         bookList.add(bookDetails);
@@ -138,8 +135,8 @@ public class BookServiceTest {
     @Test
     void givenGetAllBooks_HighToLow_ReturnBookDetails() {
         List<BookDetailsModel> bookList = new ArrayList<>();
-        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
-        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "img1.jpg","Love Story", 4, 300, 1, 1998);
         BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
         BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
         bookList.add(bookDetails);
@@ -152,8 +149,8 @@ public class BookServiceTest {
     @Test
     void givenFetchAllBooks_LowToHigh_ReturnBookDetails() {
         List<BookDetailsModel> bookList = new ArrayList<>();
-        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
-        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks","img1.jpg", "Love Story", 4, 300, 1, 1998);
         BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
         BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
         bookList.add(bookDetails);
@@ -166,8 +163,8 @@ public class BookServiceTest {
     @Test
     void givenFetchAllBooks_HighToLow_ReturnBookDetails() {
         List<BookDetailsModel> bookList = new ArrayList<>();
-        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
-        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks","img1.jpg", "Love Story", 4, 300, 1, 1998);
         BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
         BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
         bookList.add(bookDetails);
@@ -180,8 +177,8 @@ public class BookServiceTest {
     @Test
     void givenFetchAllBooks_NewestArrival_ReturnBookDetails() {
         List<BookDetailsModel> bookList = new ArrayList<>();
-        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath", "Love Story", 3, 200, 2, 2020);
-        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks", "Love Story", 4, 300, 1, 1998);
+        BookDto bookDto = new BookDto("Half Girlfriend", "Chethan Bhagath","img1.jpg", "Love Story", 3, 200, 2, 2020);
+        BookDto bookDto1 = new BookDto("The NoteBook", "Nicholas Sparks","img1.jpg", "Love Story", 4, 300, 1, 1998);
         BookDetailsModel bookDetails = new BookDetailsModel(bookDto);
         BookDetailsModel bookDetails1 = new BookDetailsModel(bookDto1);
         bookList.add(bookDetails);

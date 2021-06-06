@@ -2,9 +2,6 @@ package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
-
-import com.bridgelabz.onlinebookstore.dto.UpDateCartDto;
-import com.bridgelabz.onlinebookstore.model.BookCartDetails;
 import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.services.ICartService;
 import com.bridgelabz.onlinebookstore.utils.Token;
@@ -36,9 +33,9 @@ public class CartController {
     public ResponseEntity<ResponseDto> addBookToCart(@RequestBody CartDto cartDto,
                                                      @RequestHeader(value = "token", required = false) String token) {
         String message = cartService.addToCart(cartDto, token);
-        ResponseDto responseDto = new ResponseDto(message, "200", null);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-
+        return new ResponseEntity (new ResponseDto(message,
+                "200",null),
+                HttpStatus.CREATED);
     }
 
     @GetMapping("/allbooksincart")
@@ -49,7 +46,7 @@ public class CartController {
     }
 
     @DeleteMapping("/cart/{id}")
-    public ResponseEntity deleteBook(@PathVariable UUID id,
+    public ResponseEntity<ResponseDto> deleteBook(@PathVariable UUID id,
                                      @RequestHeader(value = "token", required = false) String Token) {
         String message = cartService.deleteCartItem(id, Token);
         ResponseDto responseDto = new ResponseDto(message);
