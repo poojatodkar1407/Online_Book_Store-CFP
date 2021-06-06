@@ -36,7 +36,7 @@ public class CartController {
     public ResponseEntity<ResponseDto> addBookToCart(@RequestBody CartDto cartDto,
                                                      @RequestHeader(value = "token", required = false) String token) {
         String message = cartService.addToCart(cartDto, token);
-        ResponseDto responseDto = new ResponseDto(message, "100", null);
+        ResponseDto responseDto = new ResponseDto(message, "200", null);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
 
     }

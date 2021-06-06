@@ -22,8 +22,8 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-    @PostMapping("/addorder/{totalPrice}")
-    public ResponseEntity<ResponseDto>  addAnOrder(@PathVariable Double totalPrice,
+    @PostMapping("/addorder")
+    public ResponseEntity<ResponseDto>  addAnOrder(@RequestParam("totalPrice") Double totalPrice,
                                                    @RequestHeader(value = "token", required = false) String token){
 
         String oderDetailsModelMessage=orderService.placeAnOrder(totalPrice,token);
