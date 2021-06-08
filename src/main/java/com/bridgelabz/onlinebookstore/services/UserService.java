@@ -45,7 +45,7 @@ public class UserService implements IUserService {
                                                                   password);
         UserDetailsModel saveDetails = userDetailsRepository.save(userDetailsModel);
         String tokenId = jwtToken.generateVerificationToken(userDetailsModel);
-        String requestUrl ="http://localhost:8080/user/verify/email/"+tokenId;
+        String requestUrl ="http://localhost:3000/verify/"+tokenId;
         System.out.println("token from registration is "+tokenId);
         try {
             mailService.sendMail(requestUrl,"the verification link is ",userDetailsModel.getEmailID());
@@ -99,7 +99,7 @@ public class UserService implements IUserService {
         UserDetailsModel user = userDetailsRepository.findByEmailID(email).orElseThrow(() -> new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
         String urlToken = "Click on below link to Reset your Password \n"
-                + "http://localhost:8080/user/reset/password/" + tokenGenerate;
+                + "http://localhost:3000/reset/" + tokenGenerate;
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";
     }

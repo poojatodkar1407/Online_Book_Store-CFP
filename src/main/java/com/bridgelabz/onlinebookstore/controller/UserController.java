@@ -22,6 +22,7 @@ import java.util.UUID;
 
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/user")
 @ComponentScan
 @EnableAutoConfiguration
