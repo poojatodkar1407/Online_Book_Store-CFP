@@ -4,16 +4,10 @@ import com.bridgelabz.onlinebookstore.dto.BookDto;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 

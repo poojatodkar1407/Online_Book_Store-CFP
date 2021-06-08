@@ -50,25 +50,25 @@ public class BookController {
 
     }
 
-    @GetMapping("/getbookindecresing")
+    @GetMapping("/getBooksHighToLow")
     public ResponseEntity<List<BookDetailsModel>> getBooksWithHigherToLower(){
         return ResponseEntity.status(HttpStatus.OK).body(bookService.showBookHigherToLower());
 
     }
 
-    @GetMapping("/getbookdecreasing")
+    @GetMapping("/getBooksLowToHigh")
     public ResponseEntity<List<BookDetailsModel>> getBooksWithLowerToHigher(){
         return ResponseEntity.status(HttpStatus.OK).body(bookService.showBookLowerToHigher());
 
     }
 
-    @GetMapping("/getbookpublishingyear")
+    @GetMapping("/getbooksByPublishingYear")
     public ResponseEntity<List<BookDetailsModel>> getBooksWithNewestLaunch(){
         return ResponseEntity.status(HttpStatus.OK).body(bookService.showBookNewLaunch());
 
     }
 
-    @GetMapping("/books/count")
+    @GetMapping("/count")
     public ResponseEntity<ResponseDto> getTotalCount() {
         return new ResponseEntity(bookService.getCountOfBooks(), HttpStatus.OK);
     }

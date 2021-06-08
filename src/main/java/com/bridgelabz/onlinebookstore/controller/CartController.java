@@ -2,9 +2,6 @@ package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
-
-import com.bridgelabz.onlinebookstore.dto.UpDateCartDto;
-import com.bridgelabz.onlinebookstore.model.BookCartDetails;
 import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.services.ICartService;
 import com.bridgelabz.onlinebookstore.utils.Token;
@@ -39,7 +36,6 @@ public class CartController {
         return new ResponseEntity (new ResponseDto(message,
                 "200",null),
                 HttpStatus.CREATED);
-
     }
 
     @GetMapping("/allbooksincart")

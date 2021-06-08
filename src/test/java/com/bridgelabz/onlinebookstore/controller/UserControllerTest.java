@@ -150,7 +150,6 @@ public class UserControllerTest {
                     .content(toJson)
                     .contentType(MediaType.APPLICATION_JSON))
                     .andReturn();
-          // System.out.println(mvcResult.getResponse());
             Assert.assertTrue(message,mvcResult.getResponse().getContentAsString().contains("LOGIN SUCCESSFUL"));
         }
 

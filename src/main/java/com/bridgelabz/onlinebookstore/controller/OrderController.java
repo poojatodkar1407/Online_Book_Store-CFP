@@ -1,9 +1,7 @@
 package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
-import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.model.OderDetailsModel;
-//import com.bridgelabz.onlinebookstore.services.IOrderService;
 import com.bridgelabz.onlinebookstore.services.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/order")
 @ComponentScan
 @EnableAutoConfiguration
 public class OrderController {
     @Autowired
     IOrderService orderService;
+
 
     @PostMapping("/addorder/")
     public ResponseEntity<ResponseDto>  addAnOrder(@RequestParam Double totalPrice,
