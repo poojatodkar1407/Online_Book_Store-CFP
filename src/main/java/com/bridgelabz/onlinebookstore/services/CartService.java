@@ -55,7 +55,7 @@ public class CartService implements ICartService {
 //                .orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.CART_NOT_PRESENT));
 
        BookDetailsModel bookById = bookRepository.
-                findById(cartDto.getCartId()).
+                findById(cartDto.getBookId()).
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
         CartDetails cartDetailsSave = new CartDetails();
         System.out.println(bookById);
@@ -67,7 +67,7 @@ public class CartService implements ICartService {
         List<BookCartDetails> cartList = new ArrayList<>();
         cartList.add(bookCartDetails);
        // cartDetails.getBookCartDetails().add(bookCartDetails);
-        cartDetailsSave.setCartId(cartDto.getCartId());
+        cartDetailsSave.setBookId(cartDto.getBookId());
         cartDetailsSave.setQuantity(cartDto.getQuantity());
         cartDetailsSave.setTotalPrice(cartDto.getTotalPrice());
         //cartDetailsSave.setBookCartDetails(cartList);
@@ -129,7 +129,7 @@ public class CartService implements ICartService {
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
 
-        Optional<BookCartDetails> searchForACart = bookCartRepository.findById(cartDto.getCartId());
+        Optional<BookCartDetails> searchForACart = bookCartRepository.findById(cartDto.getBookId());
 
 
         if (!searchForACart.isPresent()){

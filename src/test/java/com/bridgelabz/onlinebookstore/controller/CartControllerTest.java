@@ -48,7 +48,7 @@ public class CartControllerTest {
     public void givenBookDetailsAndCartDetailsToAddInDatabase_WhenAdded_ThenReturnCorrectMessage() throws Exception {
         httpHeaders.set("token","eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzZGM4YTQ4MS02NGIyLTQzMDQtODBhMi00M2I0ZmU5YzAwZjIiLCJzdWIiOiJTaGFtYWwgUGF0aWwiLCJpYXQiOjE2MjI4ODQ4NDMsImV4cCI6MTYyMjk4NDg0M30.xxxUkzp36rEJZfaD2rzM5jdsRH0Vs4eZA0OATZlN7yQ");
         CartDto cartDto = new CartDto();
-        cartDto.setCartId(UUID.fromString("8a805bb6-e07a-48b9-91da-262a50cce865"));
+        cartDto.setBookId(UUID.fromString("8a805bb6-e07a-48b9-91da-262a50cce865"));
         cartDto.setQuantity(2);
         cartDto.setTotalPrice(500.00);
         String stringConvertDto = gson.toJson(cartDto);
@@ -77,7 +77,7 @@ public class CartControllerTest {
     public void givenBookDetailsAndCartDetailsToAddInDatabase_WhenCartIsEmpty_ThenReturnStatus() throws Exception {
         httpHeaders.set("token","eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzZGM4YTQ4MS02NGIyLTQzMDQtODBhMi00M2I0ZmU5YzAwZjIiLCJzdWIiOiJTaGFtYWwgUGF0aWwiLCJpYXQiOjE2MjI4ODQ4NDMsImV4cCI6MTYyMjk4NDg0M30.xxxUkzp36rEJZfaD2rzM5jdsRH0Vs4eZA0OATZlN7yQ");
         CartDto cartDto = new CartDto();
-        cartDto.setCartId(UUID.fromString("8a805bb6-e07a-48b9-91da-262a50cce86"));
+        cartDto.setBookId(UUID.fromString("8a805bb6-e07a-48b9-91da-262a50cce86"));
         cartDto.setQuantity(2);
         cartDto.setTotalPrice(500.00);
         String stringConvertDto = gson.toJson(cartDto);

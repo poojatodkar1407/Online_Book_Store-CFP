@@ -26,7 +26,7 @@ public class CartDetails implements Serializable {
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Type(type = "uuid-char")
-    public UUID cartId;
+    public UUID bookId;
 
     public int quantity;
     public double totalPrice;
