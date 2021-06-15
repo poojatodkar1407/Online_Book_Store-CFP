@@ -10,7 +10,7 @@ import java.util.UUID;
 @Setter
 public class CartDto {
 
-    public UUID cartId;
+    public UUID bookId;
 
 
     public Integer quantity;
@@ -19,8 +19,8 @@ public class CartDto {
     public CartDto() {
     }
 
-    public CartDto(UUID cartId, Integer quantity,Double totalPrice) {
-        this.cartId = cartId;
+    public CartDto(UUID bookId, Integer quantity,Double totalPrice) {
+        this.bookId = bookId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }

@@ -42,7 +42,7 @@ public class OrderService implements IOrderService{
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND));
 
         List<CartDetails> cartDetailsList = cartRepository.findByUserDetailsModel(findTheExistedUser);
-        List<BookCartDetails> bookCartDetails =bookCartRepository.getCartItems(cartDetailsList.get(0).getCartId());
+        List<BookCartDetails> bookCartDetails =bookCartRepository.getCartItems(cartDetailsList.get(0).getBookId());
 
         List<CustomerDetails> customerDetailsList = customerDetailsRepository.findByUserDetails(findTheExistedUser);
         OderDetailsModel oderDetailsModel = new OderDetailsModel();
