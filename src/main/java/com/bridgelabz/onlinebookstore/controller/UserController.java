@@ -60,12 +60,14 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<ResponseDto> login( @RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         if (bindingResult.hasErrors()) {
+
             return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
                     getDefaultMessage(),"100",null),
                     HttpStatus.BAD_REQUEST);
 
         }
         String userLogin = userService.userLogin(userLoginDTO);
+
         httpServletResponse.setHeader("Authorization", userLogin);
         return new ResponseEntity (new ResponseDto("LOGIN SUCCESSFUL",
                 "200",userLogin),

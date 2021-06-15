@@ -30,10 +30,13 @@ public class CartDetails implements Serializable {
 
     public int quantity;
     public double totalPrice;
+    public String bookImage;
+    public String bookName;
+    public String authorName;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(mappedBy = "cartDetails")
     @Where(clause = "order_status=true")
-    @JoinColumn(name = "bookdsetails")
+//    @JoinColumn(name = "bookdetails")
     public List<BookCartDetails> bookCartDetails;
 
     @OneToOne
