@@ -78,6 +78,7 @@ public class UserService implements IUserService {
         System.out.println(userLoginDto.emailID);
         Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.getEmailID());
         System.out.println("the optional message is "+userDetailsByEmail);
+
         if (!userDetailsByEmail.isPresent()) {
             throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
         }

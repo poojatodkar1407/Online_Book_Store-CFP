@@ -72,6 +72,9 @@ public class CartService implements ICartService {
         cartDetailsSave.setTotalPrice(cartDto.getTotalPrice());
         //cartDetailsSave.setBookCartDetails(cartList);
         cartDetailsSave.setUserDetailsModel(findTheExistedUser);
+        cartDetailsSave.setBookImage(bookById.getImage());
+        cartDetailsSave.setBookName(bookById.getBookName());
+        cartDetailsSave.setAuthorName(bookById.getAuthorName());
 
 
        //cartDetails.setUserDetailsModel(findTheExistedUser);
