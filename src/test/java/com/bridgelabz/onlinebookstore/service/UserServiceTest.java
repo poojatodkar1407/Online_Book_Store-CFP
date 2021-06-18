@@ -139,20 +139,20 @@ public class UserServiceTest {
   }
 
 
-    @Test
-    void givenUserDetailsToLoginUser_WhenUserLoggedIn_ShouldReturnCorrectMessage() {
-        userLoginDto.emailID="yennefer9713@gmail.com";
-        userLoginDto.password="Skyispink@98";
-        UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
-        userDetailsModel.isVerified = true;
-        UserLoginDto userLoginDto = new UserLoginDto("yennefer9713@gmail.com", "Skyispink@98");
-        when(userDetailsRepository.findByEmailID(any())).thenReturn(java.util.Optional.of(userDetailsModel));
-        when(bCryptPasswordEncoder.matches(any(), any())).thenReturn(true);
-        when(fileProperties.getJwtExpirationMs()).thenReturn(86400000);
-        when(jwtToken.generateLoginToken(any())).thenReturn("token1");
-        String token = userService.userLogin(userLoginDto);
-        Assert.assertEquals("token1", token);
-    }
+//    @Test
+//    void givenUserDetailsToLoginUser_WhenUserLoggedIn_ShouldReturnCorrectMessage() {
+//        userLoginDto.emailID="yennefer9713@gmail.com";
+//        userLoginDto.password="Skyispink@98";
+//        UserDetailsModel userDetailsModel = new UserDetailsModel(userDetailsDto);
+//        userDetailsModel.isVerified = true;
+//        UserLoginDto userLoginDto = new UserLoginDto("yennefer9713@gmail.com", "Skyispink@98");
+//        when(userDetailsRepository.findByEmailID(any())).thenReturn(java.util.Optional.of(userDetailsModel));
+//        when(bCryptPasswordEncoder.matches(any(), any())).thenReturn(true);
+//        when(fileProperties.getJwtExpirationMs()).thenReturn(86400000);
+//        when(jwtToken.generateLoginToken(any())).thenReturn("token1");
+//        String token = userService.userLogin(userLoginDto);
+//        Assert.assertEquals("token1", token);
+//    }
 
     @Test
     void givenUserDetailsToLoginUser_WhenIncorrectPasswordEntered_ShouldThrowException() {
