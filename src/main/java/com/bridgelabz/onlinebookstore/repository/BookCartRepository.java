@@ -14,8 +14,8 @@ import java.util.UUID;
 @Repository
 public interface BookCartRepository extends JpaRepository<BookCartDetails, UUID> {
 
-   @Query(value = "select * from book_cart_details where cart_details_id = :cartId  ", nativeQuery = true)
-   List<BookCartDetails> getCartItems(@Param("cartId") UUID cartId);
+   @Query(value = "select * from book_cart_details where cart_details_id = :bookId ", nativeQuery = true)
+   List<BookCartDetails> getCartItems(@Param("bookId") UUID bookId);
 
    List<BookCartDetails> findByBookDetailsModel(BookCartDetails bookCartDetails);
 }
