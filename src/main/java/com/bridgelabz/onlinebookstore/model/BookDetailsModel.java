@@ -81,4 +81,7 @@ public class BookDetailsModel implements Serializable {
     }
 
 
+    public BookDetailsModel(UUID bookId) {
+        this.bookId=bookId;
+    }
 }

@@ -40,6 +40,7 @@ public class BookCartDetails {
     @JoinColumn(name = "orderId")
     public OderDetailsModel orderDetails;
 
+
     public BookCartDetails(CartDto cartDto){
         this.quantity=cartDto.quantity;
         this.orderStatus= false;

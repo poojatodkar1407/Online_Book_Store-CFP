@@ -26,17 +26,18 @@ public class CartDetails implements Serializable {
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Type(type = "uuid-char")
-    public UUID bookId;
+    public UUID cartId;
 
     public int quantity;
     public double totalPrice;
     public String bookImage;
     public String bookName;
     public String authorName;
+    public String bookDetailsID;
 
     @OneToMany(mappedBy = "cartDetails")
     @Where(clause = "order_status=true")
-//    @JoinColumn(name = "bookdetails")
+   // @JoinColumn(name = "cartDetailsId")
     public List<BookCartDetails> bookCartDetails;
 
     @OneToOne
