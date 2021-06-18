@@ -2,10 +2,12 @@ package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
 
+import com.bridgelabz.onlinebookstore.dto.ResponseLoginDTO;
 import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.bridgelabz.onlinebookstore.services.IUserService;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
+import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @RestController
@@ -28,7 +31,7 @@ public class UserController {
     IUserService userService;
 
 
-
+    Token jwtToken = new Token();
 
     @GetMapping("/welcome")
     public String welcome(){
@@ -58,19 +61,21 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login( @RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<ResponseLoginDTO> login(@RequestBody @Valid UserLoginDto userLoginDTO, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         if (bindingResult.hasErrors()) {
 
-            return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
-                    getDefaultMessage(),"100",null),
+            return new ResponseEntity<ResponseLoginDTO>(new ResponseLoginDTO(bindingResult.getAllErrors().get(0).
+                    getDefaultMessage(),"100",null,null),
                     HttpStatus.BAD_REQUEST);
 
         }
-        String userLogin = userService.userLogin(userLoginDTO);
-
-        httpServletResponse.setHeader("Authorization", userLogin);
+        UserDetailsModel userLogin = userService.userLogin(userLoginDTO);
+        System.out.println("user login details "+userLogin);
+        String tokenString = jwtToken.generateLoginToken(userLogin);
+        System.out.println("token "+tokenString);
+        httpServletResponse.setHeader("Authorization", tokenString);
         return new ResponseEntity (new ResponseDto("LOGIN SUCCESSFUL",
-                "200",userLogin),
+                "200",tokenString,userLogin.getFullName()),
                 HttpStatus.OK);
     }
 
@@ -93,6 +98,13 @@ public class UserController {
         String link = userService.resetPasswordLink(emailID);
         ResponseDto response = new ResponseDto(link);
         return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getDetailsOfUser")
+    public ResponseEntity<List<UserDetailsModel>> getUserDetails(@RequestHeader(value = "token", required = false) String token){
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserInformation(token));
+
     }
 
 }

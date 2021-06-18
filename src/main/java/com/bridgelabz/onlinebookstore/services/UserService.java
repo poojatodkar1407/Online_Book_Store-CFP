@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -74,7 +76,7 @@ public class UserService implements IUserService {
 
 
     @Override
-     public String userLogin(UserLoginDto userLoginDto) {
+     public UserDetailsModel userLogin(UserLoginDto userLoginDto) {
         System.out.println(userLoginDto.emailID);
         Optional<UserDetailsModel> userDetailsByEmail = userDetailsRepository.findByEmailID(userLoginDto.getEmailID());
         System.out.println("the optional message is "+userDetailsByEmail);
@@ -88,7 +90,8 @@ public class UserService implements IUserService {
                 throw new UserException(UserException.ExceptionType.PASSWORD_INVALID);
             }
             String tokenString = jwtToken.generateLoginToken(userDetailsByEmail.get());
-            return tokenString;
+            System.out.println("the user model  "+userDetailsByEmail.get());
+            return userDetailsByEmail.get();
         }
         throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
     }
@@ -117,5 +120,16 @@ public class UserService implements IUserService {
         userDetailsRepository.save(userDetails);
         return "Password Has Been Reset";
 
+    }
+
+    @Override
+    public List<UserDetailsModel> getUserInformation(String token) {
+        UUID userId = jwtToken.decodeJWT(token);
+        UserDetailsModel findTheExistedUser = userDetailsRepository.findById(userId).
+                orElseThrow(() ->new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND));
+        List<UserDetailsModel> userDetailsModelList = new ArrayList<>();
+       userDetailsModelList.add(findTheExistedUser);
+
+        return userDetailsModelList;
     }
 }

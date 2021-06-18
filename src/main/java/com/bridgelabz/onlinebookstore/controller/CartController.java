@@ -2,6 +2,7 @@ package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
+import com.bridgelabz.onlinebookstore.dto.UpdateCartDetailDto;
 import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.services.ICartService;
 import com.bridgelabz.onlinebookstore.utils.Token;
@@ -55,7 +56,7 @@ public class CartController {
     }
 
     @PutMapping("/updatecartofbook")
-    public ResponseEntity updateBookQuantity(@Valid @RequestBody CartDto cartDto,
+    public ResponseEntity updateBookQuantity(@Valid @RequestBody UpdateCartDetailDto cartDto,
                                              @RequestHeader(value = "token") String token) {
         String message = cartService.updateQuantityAndPrice(cartDto, token);
         ResponseDto responseDto = new ResponseDto(message);

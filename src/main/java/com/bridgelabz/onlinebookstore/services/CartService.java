@@ -3,6 +3,7 @@ package com.bridgelabz.onlinebookstore.services;
 import com.bridgelabz.onlinebookstore.dto.CartDto;
 
 import com.bridgelabz.onlinebookstore.dto.UpDateCartDto;
+import com.bridgelabz.onlinebookstore.dto.UpdateCartDetailDto;
 import com.bridgelabz.onlinebookstore.exception.BookStoreException;
 
 import com.bridgelabz.onlinebookstore.model.BookCartDetails;
@@ -67,7 +68,7 @@ public class CartService implements ICartService {
         List<BookCartDetails> cartList = new ArrayList<>();
         cartList.add(bookCartDetails);
        // cartDetails.getBookCartDetails().add(bookCartDetails);
-        cartDetailsSave.setBookId(cartDto.getBookId());
+//        cartDetailsSave.setBookId(cartDto.getBookId());
         cartDetailsSave.setQuantity(cartDto.getQuantity());
         cartDetailsSave.setTotalPrice(cartDto.getTotalPrice());
         //cartDetailsSave.setBookCartDetails(cartList);
@@ -75,6 +76,7 @@ public class CartService implements ICartService {
         cartDetailsSave.setBookImage(bookById.getImage());
         cartDetailsSave.setBookName(bookById.getBookName());
         cartDetailsSave.setAuthorName(bookById.getAuthorName());
+        cartDetailsSave.setBookDetailsID(bookById.getBookId().toString());
 
 
        //cartDetails.setUserDetailsModel(findTheExistedUser);
@@ -84,6 +86,7 @@ public class CartService implements ICartService {
         bookCartDetails.setBookDetailsModel(bookById);
         System.out.println("Book Cart Details : "+bookCartDetails);
         BookCartDetails saveBooksToCart = bookCartRepository.save(bookCartDetails);
+        System.out.println(saveBooksToCart);
         return "Book Added To Cart Successfully";
 
 
@@ -93,16 +96,27 @@ public class CartService implements ICartService {
     @Override
     public String deleteCartItem(UUID id, String token) {
         UUID userId = jwtToken.decodeJWT(token);
+        System.out.println("the token present uuid "+userId);
         Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
 
         if (!findTheExistedUser.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
-        Optional<BookCartDetails> findbookById = bookCartRepository.findById(id);
+        BookDetailsModel bookDetailsModel = new BookDetailsModel(id);
+        Optional<BookCartDetails> findbookById = bookCartRepository.findByBookDetailsModel(bookDetailsModel);
+
         if (!findbookById.isPresent()){
+            throw new BookStoreException(BookStoreException.ExceptionTypes.CART_NOT_PRESENT);
+        }
+        UUID idNeeded=findbookById.get().cartDetailsId;
+        bookCartRepository.deleteById(idNeeded);
+
+        Optional<CartDetails> searchForBookInCart = cartRepository.findByBookDetailsID(id.toString());
+        if(!searchForBookInCart.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND);
         }
-        bookCartRepository.deleteById(id);
+        UUID idNeededInCart =searchForBookInCart.get().getCartId();
+        cartRepository.deleteById(idNeededInCart);
 
 
 
@@ -112,18 +126,22 @@ public class CartService implements ICartService {
     @Override
     public List<CartDetails> showAllBooksInCart(String Token) {
         UUID userId = jwtToken.decodeJWT(Token);
+        System.out.println("the token present uuid "+userId);
         Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
+
 
         if (!findTheExistedUser.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
+
         List<CartDetails> cartDetailsListOfUserModel = cartRepository.findByUserDetailsModel(findTheExistedUser.get());
         cartDetailsListOfUserModel.forEach(cartDetails -> System.out.println(cartDetails.toString()));
         return cartDetailsListOfUserModel;
     }
 
     @Override
-    public String updateQuantityAndPrice(CartDto cartDto, String token) {
+    public String updateQuantityAndPrice(UpdateCartDetailDto cartDto, String token) {
+
 
         UUID userId = jwtToken.decodeJWT(token);
         Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
@@ -131,9 +149,17 @@ public class CartService implements ICartService {
         if (!findTheExistedUser.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
+       BookDetailsModel bookDetailsModel = new BookDetailsModel(cartDto.getBookId());
+     //List<BookCartDetails> searchForACart = bookCartRepository.findByBookDetailsModel(cartDto.getBookId());
+        Optional<BookCartDetails> searchForACart = bookCartRepository.findByBookDetailsModel(bookDetailsModel);
+        System.out.println("book search "+searchForACart);
+        System.out.println(cartDto.getBookId());
+        Optional<CartDetails> searchForBookInCart = cartRepository.findByBookDetailsID(cartDto.getBookId().toString());
+        System.out.println(searchForBookInCart);
 
-        Optional<BookCartDetails> searchForACart = bookCartRepository.findById(cartDto.getBookId());
-
+          if(!searchForBookInCart.isPresent()){
+              throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND);
+          }
 
         if (!searchForACart.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.CART_NOT_PRESENT);
@@ -143,6 +169,11 @@ public class CartService implements ICartService {
         searchForACart.get().setQuantity(cartDto.getQuantity());
         searchForACart.get().setTotalPrice(cartDto.getTotalPrice());
         BookCartDetails save = bookCartRepository.save(searchForACart.get());
+//
+        //searchForBookInCart.get().setBookDetailsID(cartDto.getBookId());
+        searchForBookInCart.get().setQuantity(cartDto.getQuantity());
+        searchForBookInCart.get().setTotalPrice(cartDto.getTotalPrice());
+        CartDetails saveDetails=cartRepository.save(searchForBookInCart.get());
 
         return "Quantity of book and its price has updated";
 
