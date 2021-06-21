@@ -43,6 +43,8 @@ public class CustomerService implements ICustomerService{
         customerDetails.setUserDetails(findTheExistedUser);
 
         listOfCustomerDetails.add(customerDetails);
+        findTheExistedUser.getCustomerDetails().add(customerDetails);
+        findTheExistedUser.setCustomerDetails(listOfCustomerDetails);
         CustomerDetails save = customerDetailsRepository.save(customerDetails);
 
 

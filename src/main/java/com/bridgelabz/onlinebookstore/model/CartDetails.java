@@ -1,4 +1,5 @@
 package com.bridgelabz.onlinebookstore.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -14,13 +15,13 @@ import java.util.UUID;
 
 
 
-@ToString
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartDetails implements Serializable {
+public class CartDetails {
 
     @Id
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
@@ -28,18 +29,13 @@ public class CartDetails implements Serializable {
     @Type(type = "uuid-char")
     public UUID cartId;
 
-    public int quantity;
-    public double totalPrice;
-    public String bookImage;
-    public String bookName;
-    public String authorName;
-    public String bookDetailsID;
+
 
     @OneToMany(mappedBy = "cartDetails")
     @Where(clause = "order_status=true")
-   // @JoinColumn(name = "cartDetailsId")
     public List<BookCartDetails> bookCartDetails;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(referencedColumnName = "userId")
     public UserDetailsModel userDetailsModel;

@@ -34,6 +34,9 @@ public class UserService implements IUserService {
     @Autowired
     MailService mailService;
 
+    @Autowired
+    CartService cartService;
+
     @Override
     public UserDetailsModel addUser(UserDetailsDto userDetails) {
         Optional<UserDetailsModel> byEmailId = userDetailsRepository.findByEmailID(userDetails.getEmailID());
@@ -54,6 +57,7 @@ public class UserService implements IUserService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        cartService.setCart(userDetailsModel);
         return saveDetails;
     }
 
@@ -71,6 +75,7 @@ public class UserService implements IUserService {
         userId.get().isVerified=true;
         userId.get().updatedAt= LocalDateTime.now();
         userDetailsRepository.save(userId.get());
+
 
     }
 
