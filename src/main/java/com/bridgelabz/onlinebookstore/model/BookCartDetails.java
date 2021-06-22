@@ -2,8 +2,9 @@ package com.bridgelabz.onlinebookstore.model;
 
 
 import com.bridgelabz.onlinebookstore.dto.CartDto;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -12,32 +13,36 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+
 @Getter
 @Setter
 @Entity
-@Table
+@AllArgsConstructor
 public class BookCartDetails {
 
     @Id
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Type(type = "uuid-char")
-    public UUID cartDetailsId;
+    public UUID BookCartDetailsId;
+
     public Integer quantity;
     public Double totalPrice;
     public boolean orderStatus;
     public String addedToCartDate;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "bookModelId")
     public BookDetailsModel bookDetailsModel;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "cartId")
+    @JoinColumn(name = "cartDetailsId")
     public CartDetails cartDetails;
 
     @ManyToOne
-    @JoinColumn(name = "orderId")
+    @JoinColumn(name = "orderDetailsId")
     public OderDetailsModel orderDetails;
 
 
@@ -53,7 +58,7 @@ public class BookCartDetails {
     }
 
     public BookCartDetails(BookCartDetails bookCartDetails) {
-        this.cartDetailsId=bookCartDetails.getCartDetailsId();
+        this.BookCartDetailsId=bookCartDetails.getBookCartDetailsId();
         this.quantity=bookCartDetails.getQuantity();
         this.orderStatus=bookCartDetails.orderStatus;
         this.totalPrice=bookCartDetails.getTotalPrice();

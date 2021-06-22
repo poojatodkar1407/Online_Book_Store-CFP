@@ -11,6 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface CustomerDetailsRepository extends JpaRepository<CustomerDetails, UUID> {
-          List<CustomerDetails> findByUserDetails(UserDetailsModel userDetailsModel);
+        List<CustomerDetails> findByUserDetails(UserDetailsModel userDetailsModel);
 
 }
