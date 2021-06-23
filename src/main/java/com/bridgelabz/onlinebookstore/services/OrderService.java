@@ -53,6 +53,7 @@ public class OrderService implements IOrderService{
         cartBooks.forEach(cartBook -> {
             cartBook.setOrderDetails(oderDetailsModel);
             cartBook.setOrderStatus(true);
+
             bookRepository.updateStock(cartBook.getQuantity(),cartBook.getBookDetailsModel().bookId);
 
 //
@@ -68,6 +69,7 @@ public class OrderService implements IOrderService{
             int bookQuantity = cartBook.getQuantity();
             int quantityCartOfBook = searchBook.getQuantity();
             searchBook.setQuantity(quantityCartOfBook-bookQuantity);
+            searchBook.setAdded(false);
             bookRepository.save(searchBook);
 
         });
