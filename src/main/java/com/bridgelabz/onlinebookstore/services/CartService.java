@@ -63,14 +63,7 @@ public class CartService implements ICartService {
         bookCartDetails.setBookDetailsModel(bookById);
         bookCartRepository.save(bookCartDetails);
         return "Book Added To Cart Successfully";
-
-
-
     }
-
-
-
-
 
     @Override
     public List<BookCartSummary> showAllBooksInCart(String Token) {
@@ -83,13 +76,11 @@ public class CartService implements ICartService {
         List<BookCartSummary> collectBookCartDetails = bookCartDetails.stream()
                 .map(summary -> new BookCartSummary(summary)).collect(Collectors.toList());
         System.out.println(bookCartDetails);
-
         return collectBookCartDetails;
     }
 
     @Override
     public String updateQuantityAndPrice(UpdateCartDetailDto cartDto, String token) {
-
 
         UUID userId = jwtToken.decodeJWT(token);
         Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
@@ -99,8 +90,6 @@ public class CartService implements ICartService {
         bookCartDetails.setQuantity(cartDto.getQuantity());
         bookCartDetails.setTotalPrice(cartDto.totalPrice);
         return "Quantity of book and its price has updated";
-
-
     }
 
     @Override
