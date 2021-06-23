@@ -16,6 +16,5 @@ public interface CartRepository extends JpaRepository<CartDetails,UUID> {
         List<CartDetails> findByBookCartDetails(BookCartDetails bookCartDetails);
         Optional<CartDetails> findByUserDetailsModel(UserDetailsModel userDetailsModel);
 
-
    }
 

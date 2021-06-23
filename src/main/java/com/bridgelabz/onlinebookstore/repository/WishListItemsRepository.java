@@ -9,16 +9,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface WishListItemsRepository extends JpaRepository<WishListItems, Integer> {
-//    List<WishListItems> findAllByWishListWishId(Integer wishListId);
-//    List<WishListItems> findAllByBookId(Integer bookId);
+public interface WishListItemsRepository extends JpaRepository<WishListItems, UUID> {
+//    List<WishListItems> findAllByWishListWishId(UUID wishListId);
+//    List<WishListItems> findAllByBookId(UUID bookId);
 //
 //    @Transactional
 //    @Modifying
 //    @Query(value = "delete from wishlistitems where book_id = :bookId and  wish_list_id = :wishListId", nativeQuery = true)
-//    Integer deleteWishItems(@Param("bookId") Integer bookId, @Param("wishListId") Integer wishListId);
+//    Integer deleteWishItems(@Param("bookId") UUID bookId, @Param("wishListId") UUID wishListId);
 //
-//    List<WishListItems> findByBookIdAndWishListWishId(Integer bookId, Integer wishListId);
+//    List<WishListItems> findByBookIdAndWishListWishId(UUID bookId, UUID wishListId);
 }

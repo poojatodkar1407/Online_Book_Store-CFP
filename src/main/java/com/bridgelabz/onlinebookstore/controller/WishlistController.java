@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.controller;
 
+import com.bridgelabz.onlinebookstore.dto.CartDto;
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
 import com.bridgelabz.onlinebookstore.model.OderDetailsModel;
 import com.bridgelabz.onlinebookstore.model.WishListItems;
@@ -26,12 +27,13 @@ public class WishlistController {
     IWishListService wishListService;
 
     @PostMapping("/wishlist/{bookid}")
-    public ResponseEntity<Response> addToWishList(@PathVariable(name = "bookid") Integer bookId, @RequestHeader(value = "token", required = false) String token) {
+    public ResponseEntity<Response> addToWishList(@PathVariable(name = "bookid") UUID bookId, @RequestHeader(value = "token", required = false) String token) {
         String message = wishListService.addToWishList(bookId, token);
         return new ResponseEntity (new ResponseDto(message,
                 "200",null),
                 HttpStatus.CREATED);
     }
+
 
     @GetMapping("/wishlist")
     public  ResponseEntity<List<WishListItems>> fetchWishList(@RequestHeader(value = "token", required = false) String token) {
@@ -40,7 +42,7 @@ public class WishlistController {
 
 
     @DeleteMapping("/wishlist/{bookid}")
-    public ResponseEntity<Response> deleteBookFromWishList(@PathVariable(name = "bookid") Integer bookId, @RequestHeader(value = "token", required = false) String token) {
+    public ResponseEntity<Response> deleteBookFromWishList(@PathVariable(name = "bookid") UUID bookId, @RequestHeader(value = "token", required = false) String token) {
         String message = wishListService.deleteBookFromWishList(bookId, token);
         Response response = new Response(message);
         return new ResponseEntity<>(response, HttpStatus.OK);
