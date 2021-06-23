@@ -39,13 +39,13 @@ public class WishlistController {
     public  ResponseEntity<List<WishListItems>> fetchWishList(@RequestHeader(value = "token", required = false) String token) {
         return ResponseEntity.status(HttpStatus.OK).body(wishListService.fetchWishList(token));
     }
-
-
-    @DeleteMapping("/wishlist/{bookid}")
-    public ResponseEntity<Response> deleteBookFromWishList(@PathVariable(name = "bookid") UUID bookId, @RequestHeader(value = "token", required = false) String token) {
-        String message = wishListService.deleteBookFromWishList(bookId, token);
-        Response response = new Response(message);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//
+//
+//    @DeleteMapping("/wishlist/{bookid}")
+//    public ResponseEntity<Response> deleteBookFromWishList(@PathVariable(name = "bookid") UUID bookId, @RequestHeader(value = "token", required = false) String token) {
+//        String message = wishListService.deleteBookFromWishList(bookId, token);
+//        Response response = new Response(message);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
 }

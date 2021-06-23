@@ -14,8 +14,10 @@ import java.util.UUID;
 @Repository
 public interface WishListItemsRepository extends JpaRepository<WishListItems, UUID> {
 //    List<WishListItems> findAllByWishListWishId(UUID wishListId);
-//    List<WishListItems> findAllByBookId(UUID bookId);
-//
+      List<WishListItems> findByWishList(UUID wishListId);
+
+
+
 //    @Transactional
 //    @Modifying
 //    @Query(value = "delete from wishlistitems where book_id = :bookId and  wish_list_id = :wishListId", nativeQuery = true)
