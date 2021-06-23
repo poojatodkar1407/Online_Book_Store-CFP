@@ -53,22 +53,28 @@ public class OrderService implements IOrderService{
         cartBooks.forEach(cartBook -> {
             cartBook.setOrderDetails(oderDetailsModel);
             cartBook.setOrderStatus(true);
+            bookRepository.updateStock(cartBook.getQuantity(),cartBook.getBookDetailsModel().bookId);
+
 //
 
 
         });
 
-//        cartBooks.forEach(cartBook -> {
-//            Optional<BookDetailsModel> searchBook = bookRepository.findById(cartBook.getBookDetailsModel().bookId);
-//            int bookQuantity = cartBook.getQuantity();
-//            int quantityCartOfBook = searchBook.get().quantity;
-//            searchBook.get().setQuantity(bookQuantity-quantityCartOfBook);
-//
-//        });
+        cartBooks.forEach(cartBook -> {
+            BookDetailsModel searchBook = bookRepository.
+                    findById(cartBook.getBookDetailsModel().bookId).
+                    orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
+
+            int bookQuantity = cartBook.getQuantity();
+            int quantityCartOfBook = searchBook.getQuantity();
+            searchBook.setQuantity(quantityCartOfBook-bookQuantity);
+            bookRepository.save(searchBook);
+
+        });
 
 
 
-         //bookCartRepository.updateOrderPlacedStatus(cartDetails.getCartId());
+         bookCartRepository.updateOrderPlacedStatus(cartDetails.getCartId());
 
 
         return "hurray !!! your order of order id "+saveOrder.getOrderId()+ "is successfull";

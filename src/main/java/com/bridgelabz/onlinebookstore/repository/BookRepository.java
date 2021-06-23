@@ -16,6 +16,7 @@ import java.util.UUID;
 public interface BookRepository extends JpaRepository<BookDetailsModel,UUID> {
   Optional<BookDetailsModel> findByBookName(String bookName);
   Optional<BookDetailsModel> findByBookId(UUID bookId);
+//  Optional<BookDetailsModel>  findByAdded(boolean isAdded);
 
   @Modifying
   @Transactional

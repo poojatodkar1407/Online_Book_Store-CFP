@@ -50,21 +50,28 @@ public class CartService implements ICartService {
                 findById(cartDto.getBookId()).
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
 
-        CartDetails cartDetails = getCart(userId);
-        BookCartDetails bookCartDetails = new BookCartDetails(cartDto);
-        List<BookCartDetails> cartList = new ArrayList<>();
+        if(bookById.isAdded()==true){
+            throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
+        }
 
-        cartList.add(bookCartDetails);
-        cartDetails.getBookCartDetails().add(bookCartDetails);
-        cartDetails.setBookCartDetails(cartList);
-        cartRepository.save(cartDetails);
-        bookCartDetails.setCartDetails(cartDetails);
-        bookCartDetails.setBookDetailsModel(bookById);
-        bookCartRepository.save(bookCartDetails);
-        return "Book Added To Cart Successfully";
+        else {
+            CartDetails cartDetails = getCart(userId);
+            BookCartDetails bookCartDetails = new BookCartDetails(cartDto);
+            List<BookCartDetails> cartList = new ArrayList<>();
+
+            cartList.add(bookCartDetails);
+            cartDetails.getBookCartDetails().add(bookCartDetails);
+            cartDetails.setBookCartDetails(cartList);
+            cartRepository.save(cartDetails);
+            bookCartDetails.setCartDetails(cartDetails);
+            bookCartDetails.setBookDetailsModel(bookById);
+            bookCartRepository.save(bookCartDetails);
+            bookById.setAdded(true);
+            bookRepository.save(bookById);
+            return "Book Added To Cart Successfully";
 
 
-
+        }
     }
 
 
@@ -96,7 +103,8 @@ public class CartService implements ICartService {
         BookCartDetails bookCartDetails = bookCartRepository.findByBookDetailsModelBookId(cartDto.getBookId()).
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
         bookCartDetails.setQuantity(cartDto.getQuantity());
-        bookCartDetails.setTotalPrice(cartDto.totalPrice);
+        bookCartDetails.setTotalPrice(cartDto.getTotalPrice());
+        bookCartRepository.save(bookCartDetails);
         return "Quantity of book and its price has updated";
 
 
@@ -111,7 +119,16 @@ public class CartService implements ICartService {
         if (!findbookById.isPresent()){
             throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND);
         }
+
+        BookDetailsModel bookById = bookRepository.
+                findById(id).
+                orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
+
+        bookById.setAdded(false);
         bookCartRepository.deleteById(findbookById.get().BookCartDetailsId);
+
+
+
         return "book is removed from cart";
     }
 
