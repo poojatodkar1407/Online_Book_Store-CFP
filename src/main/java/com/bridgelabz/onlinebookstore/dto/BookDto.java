@@ -40,12 +40,12 @@ public class BookDto {
     public double bookPrice;
 
     @Min(value = 1, message = "Quantity cant be 0")
-    public double quantity;
+    public Integer quantity;
 
     @Range(min = 999, max = 2020, message = "Year should be between 999 and 2020")
     public int publishingYear;
 
-    public BookDto(String bookName, String authorName,String image,String description,int rating, double bookPrice, double quantity, int publishingYear) {
+    public BookDto(String bookName, String authorName,String image,String description,int rating, double bookPrice, Integer quantity, int publishingYear) {
         this.bookName = bookName;
         this.authorName = authorName;
         this.bookPrice = bookPrice;

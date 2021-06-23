@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,21 +32,33 @@ public class OderDetailsModel implements Serializable {
     public LocalDate orderPlacedDate;
 
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cartId")
     public CartDetails cart;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userId")
     public UserDetailsModel user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer")
     public CustomerDetails customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "orderDetails")
-   List<BookCartDetails> bookCartDetails;
+    List<BookCartDetails> bookCartDetails;
 
+    public OderDetailsModel(Integer orderId, Double totalPrice, LocalDate orderPlacedDate,CartDetails cart, UserDetailsModel user, CustomerDetails customer, List<BookCartDetails> bookCartDetails) {
+        this.orderId = orderId;
+        this.totalPrice = totalPrice;
+        this.orderPlacedDate=LocalDate.now();
+        this.cart = cart;
+        this.user = user;
+        this.customer = customer;
+        this.bookCartDetails = bookCartDetails;
+    }
 }
 

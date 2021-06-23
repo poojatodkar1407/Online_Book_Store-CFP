@@ -1,6 +1,7 @@
 package com.bridgelabz.onlinebookstore.controller;
 
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
+import com.bridgelabz.onlinebookstore.model.BookCartDetails;
 import com.bridgelabz.onlinebookstore.model.OderDetailsModel;
 import com.bridgelabz.onlinebookstore.services.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class OrderController {
     }
 
     @GetMapping("/getall_order_details")
-    public ResponseEntity<List<OderDetailsModel>> fetchAllOrderOfParticularUser(@RequestHeader(value = "token", required = false) String token){
+    public ResponseEntity<List<BookCartDetails>> fetchAllOrderOfParticularUser(@RequestHeader(value = "token", required = false) String token){
 
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getAllOrders(token));
     }

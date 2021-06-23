@@ -2,6 +2,7 @@ package com.bridgelabz.onlinebookstore.model;
 
 
 import com.bridgelabz.onlinebookstore.dto.CustomerDetailsDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -37,9 +39,13 @@ public class CustomerDetails implements Serializable {
    public String addressType;
 
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userId")
     public UserDetailsModel userDetails;
+
+    @OneToMany(mappedBy = "customer")
+    List<OderDetailsModel> orderDetailsList;
 
     public CustomerDetails(CustomerDetailsDto customerDetailsDto) {
         this.pinCode=customerDetailsDto.pinCode;

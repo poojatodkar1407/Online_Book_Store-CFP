@@ -1,6 +1,8 @@
 package com.bridgelabz.onlinebookstore.model;
 
 import com.bridgelabz.onlinebookstore.dto.BookDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -8,7 +10,9 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+
 
 
 
@@ -17,8 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
-public class BookDetailsModel implements Serializable {
+public class BookDetailsModel {
 
     @Id
     @GeneratedValue(generator = "uuid2",strategy = GenerationType.AUTO)
@@ -31,19 +34,18 @@ public class BookDetailsModel implements Serializable {
     public String authorName;
     public String description;
     public double bookPrice;
-    public double quantity;
+    public Integer quantity;
     public int rating;
     public int publishingYear;
     public LocalDateTime createdAt = LocalDateTime.now();
 
 
-
-// @OneToMany( mappedBy = "BookCartDetails", cascade=CascadeType.ALL)
-// public List<BookCartDetails> bookCartDetails;
-
+ @OneToMany( mappedBy = "bookDetailsModel")
+ public List<BookCartDetails> bookCartDetails;
 
 
-    public BookDetailsModel( String image,String bookName, String authorName, String description, double bookPrice, double quantity, int rating, int publishingYear) {
+
+    public BookDetailsModel( String image,String bookName, String authorName, String description, double bookPrice, Integer quantity, int rating, int publishingYear) {
         this.image=image;
         this.bookName = bookName;
         this.authorName = authorName;
@@ -78,6 +80,7 @@ public class BookDetailsModel implements Serializable {
         this.publishingYear=bookDetailsModel.getPublishingYear();
         this.createdAt=bookDetailsModel.getCreatedAt();
         this.image=bookDetailsModel.getImage();
+        this.bookCartDetails=bookDetailsModel.getBookCartDetails();
     }
 
 
