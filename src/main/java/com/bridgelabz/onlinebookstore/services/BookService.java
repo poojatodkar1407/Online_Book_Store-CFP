@@ -23,7 +23,8 @@ public class BookService implements IBookService{
             throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
 
         }
-        BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getImage(),book.getBookName(),
+        BookDetailsModel bookDetailsModel = new BookDetailsModel(book.getImage(),
+                book.getBookName(),
                 book.getAuthorName(),
                 book.getDescription(),
                 book.getBookPrice(),

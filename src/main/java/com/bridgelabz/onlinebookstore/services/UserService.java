@@ -37,6 +37,9 @@ public class UserService implements IUserService {
     @Autowired
     CartService cartService;
 
+    @Autowired
+    WishListService wishListService;
+
     @Override
     public UserDetailsModel addUser(UserDetailsDto userDetails) {
         Optional<UserDetailsModel> byEmailId = userDetailsRepository.findByEmailID(userDetails.getEmailID());
@@ -58,6 +61,8 @@ public class UserService implements IUserService {
             e.printStackTrace();
         }
         cartService.setCart(userDetailsModel);
+        wishListService.setWish(userDetailsModel);
+
         return saveDetails;
     }
 

@@ -17,7 +17,9 @@ public class BookStoreException extends RuntimeException {
         BOOK_AlREADY_PRESENT("book is already added in database"),
         BOOK_NOT_FOUND("book is not found"),
         CART_NOT_PRESENT("invalid cart id"),
-        NO_BOOKS_FOUND("no books available");
+        NO_BOOKS_FOUND("no books available"),
+        BOOK_ALREADY_PRESENT_IN_CART("book already present in cart"),
+        WISH_LIST_IS_NOT_PRESENT("User not present for  wishList");
 
         public String errorMsg;
 

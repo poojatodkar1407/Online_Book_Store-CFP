@@ -37,6 +37,8 @@ public class BookDetailsModel {
     public Integer quantity;
     public int rating;
     public int publishingYear;
+    public boolean isAdded;
+    public boolean isAddedToWish;
     public LocalDateTime createdAt = LocalDateTime.now();
 
 
@@ -45,7 +47,7 @@ public class BookDetailsModel {
 
 
 
-    public BookDetailsModel( String image,String bookName, String authorName, String description, double bookPrice, Integer quantity, int rating, int publishingYear) {
+    public BookDetailsModel( String image,String bookName, String authorName, String description, double bookPrice, Integer quantity, int rating,int publishingYear) {
         this.image=image;
         this.bookName = bookName;
         this.authorName = authorName;
@@ -80,6 +82,8 @@ public class BookDetailsModel {
         this.publishingYear=bookDetailsModel.getPublishingYear();
         this.createdAt=bookDetailsModel.getCreatedAt();
         this.image=bookDetailsModel.getImage();
+        this.isAdded=bookDetailsModel.isAdded();
+        this.isAddedToWish=bookDetailsModel.isAddedToWish();
         this.bookCartDetails=bookDetailsModel.getBookCartDetails();
     }
 

@@ -11,6 +11,8 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity
@@ -25,8 +27,8 @@ public class WishListItems implements Serializable {
     @Type(type = "uuid-char")
     private UUID wishListItemsId;
 
-    @CreationTimestamp
-    private Timestamp addedToCartDate;
+
+    private String addedToWishtDate;
 
     @ManyToOne()
     @JoinColumn(name = "bookId")
@@ -37,9 +39,12 @@ public class WishListItems implements Serializable {
     @JoinColumn(name = "wishListId")
     private WishList wishList;
 
-    public WishListItems(BookDetailsModel book, WishList wishList) {
-        this.book = book;
-        this.wishList = wishList;
-    }
+//    public WishListItems(BookDetailsModel book, WishList wishList) {
+//        this.book = book;
+//        this.wishList = wishList;
+//    }
 
+    public WishListItems(UUID book) {
+        this.addedToWishtDate=  LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy"));
+    }
 }
