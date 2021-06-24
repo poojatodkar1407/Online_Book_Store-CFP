@@ -99,15 +99,37 @@ public class WishListService implements IWishListService {
     public List<WishListItems> fetchWishList(String token) {
         UUID userId = jwtToken.decodeJWT(token);
         WishList wishList = getWish(userId);
+        List<WishListItems> wishListItemsList =wishListItemsRepository.findByWishListWishId(wishList.getWishId());
 
 
 
 
-        return null;
+
+        return wishListItemsList;
     }
 
-//    @Override
-//    public String deleteBookFromWishList(UUID wishListId, String token) {
-//        return null;
-//    }
+    @Override
+    public String deleteBookFromWishList(UUID bookId, String token) {
+        UUID userId = jwtToken.decodeJWT(token);
+        Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
+
+        if(!findTheExistedUser.isPresent()) {
+            throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
+        }
+        Optional<WishListItems> wishListItems = wishListItemsRepository.findByBookBookId(bookId);
+               if(!wishListItems.isPresent()){
+                   throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND);
+               }
+
+        BookDetailsModel bookById = bookRepository.
+                findById(bookId).
+                orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
+
+         bookById.setAddedToWish(false);
+         bookRepository.save(bookById);
+
+         wishListItemsRepository.deleteById(wishListItems.get().getWishListItemsId());
+
+        return "Book deleted successfully";
+      }
 }
