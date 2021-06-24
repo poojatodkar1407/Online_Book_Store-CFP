@@ -10,9 +10,13 @@ import java.util.UUID;
 
 public interface IUserService {
     UserDetailsModel addUser(UserDetailsDto userDetails);
+
     void verifyEmail(String tokenId);
+
     UserDetailsModel userLogin(UserLoginDto userLoginDto);
+
     String resetPasswordLink(String email) throws MessagingException;
+
     String resetPassword(String password, String urlToken);
 
     List<UserDetailsModel> getUserInformation(String token);

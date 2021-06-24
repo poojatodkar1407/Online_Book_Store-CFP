@@ -10,5 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface WishListRespository extends JpaRepository<WishList, UUID> {
+
   Optional<WishList> findByUser(UserDetailsModel userDetailsModel);
+
 }

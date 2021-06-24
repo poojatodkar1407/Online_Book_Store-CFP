@@ -14,6 +14,8 @@ import java.util.UUID;
 
 @Repository
 public interface WishListItemsRepository extends JpaRepository<WishListItems, UUID> {
+
+
 //    List<WishListItems> findAllByWishListWishId(UUID wishListId);
       List<WishListItems> findByWishListWishId(UUID wishListId);
       Optional<WishListItems> findByBookBookId(UUID bookId);
@@ -23,4 +25,5 @@ public interface WishListItemsRepository extends JpaRepository<WishListItems, UU
 //    Integer deleteWishItems(@Param("bookId") UUID bookId, @Param("wishListId") UUID wishListId);
 //
 //    List<WishListItems> findByBookIdAndWishListWishId(UUID bookId, UUID wishListId);
+
 }
