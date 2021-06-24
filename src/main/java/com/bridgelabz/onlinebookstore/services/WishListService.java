@@ -47,32 +47,32 @@ public class WishListService implements IWishListService {
                 findById(book).
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
 
-      if(bookById.isAdded()==true){
-          throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_ALREADY_PRESENT_IN_CART);
-      }
+        if(bookById.isAdded()==true){
+            throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_ALREADY_PRESENT_IN_CART);
+        }
 
-      else {
-          if (bookById.isAddedToWish() == true) {
-              throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
-          } else {
+        else {
+            if (bookById.isAddedToWish() == true) {
+                throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_AlREADY_PRESENT);
+            } else {
 
-              WishList wishList = getWish(userId);
-              WishListItems wishListItems = new WishListItems(book);
-              List<WishListItems> wishListItemsList = new ArrayList<>();
-              wishListItemsList.add(wishListItems);
-              wishList.getWishListItems().add(wishListItems);
-              wishList.setWishListItems(wishListItemsList);
-              wishListRespository.save(wishList);
-              wishListItems.setWishList(wishList);
-              wishListItems.setBook(bookById);
-             // wishListItems.setAddedToWishtDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy")));
-              wishListItemsRepository.save(wishListItems);
-              bookById.setAddedToWish(true);
-              bookRepository.save(bookById);
+                WishList wishList = getWish(userId);
+                WishListItems wishListItems = new WishListItems(book);
+                List<WishListItems> wishListItemsList = new ArrayList<>();
+                wishListItemsList.add(wishListItems);
+                wishList.getWishListItems().add(wishListItems);
+                wishList.setWishListItems(wishListItemsList);
+                wishListRespository.save(wishList);
+                wishListItems.setWishList(wishList);
+                wishListItems.setBook(bookById);
+                // wishListItems.setAddedToWishtDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy")));
+                wishListItemsRepository.save(wishListItems);
+                bookById.setAddedToWish(true);
+                bookRepository.save(bookById);
 
-              return "Book Added To Wish List Successfully";
-          }
-      }
+                return "Book Added To Wish List Successfully";
+            }
+        }
     }
 
     private WishList getWish(UUID userId) {
@@ -99,15 +99,37 @@ public class WishListService implements IWishListService {
     public List<WishListItems> fetchWishList(String token) {
         UUID userId = jwtToken.decodeJWT(token);
         WishList wishList = getWish(userId);
+        List<WishListItems> wishListItemsList =wishListItemsRepository.findByWishListWishId(wishList.getWishId());
 
 
 
 
-        return null;
+
+        return wishListItemsList;
     }
 
-//    @Override
-//    public String deleteBookFromWishList(UUID wishListId, String token) {
-//        return null;
-//    }
+    @Override
+    public String deleteBookFromWishList(UUID bookId, String token) {
+        UUID userId = jwtToken.decodeJWT(token);
+        Optional<UserDetailsModel> findTheExistedUser = userDetailsRepository.findById(userId);
+
+        if(!findTheExistedUser.isPresent()) {
+            throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
+        }
+        Optional<WishListItems> wishListItems = wishListItemsRepository.findByBookBookId(bookId);
+               if(!wishListItems.isPresent()){
+                   throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND);
+               }
+
+        BookDetailsModel bookById = bookRepository.
+                findById(bookId).
+                orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
+
+         bookById.setAddedToWish(false);
+         bookRepository.save(bookById);
+
+         wishListItemsRepository.deleteById(wishListItems.get().getWishListItemsId());
+
+        return "Book deleted successfully";
+      }
 }

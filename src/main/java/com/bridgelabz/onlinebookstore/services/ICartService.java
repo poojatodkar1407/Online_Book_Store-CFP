@@ -12,11 +12,13 @@ import java.util.UUID;
 
 public interface ICartService {
     String addToCart(CartDto cartDto, String token);
+
     List<BookCartSummary> showAllBooksInCart(String Token);
+
     String updateQuantityAndPrice(UpdateCartDetailDto cartDto, String token);
+
     String deleteCartItem(UUID id, String token);
+
     CartDetails setCart(UserDetailsModel userDetailsModel);
-
-
 
 }

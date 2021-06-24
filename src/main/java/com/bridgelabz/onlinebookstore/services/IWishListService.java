@@ -9,11 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IWishListService {
-//
+
     String addToWishList(UUID bookId, String token);
-//
-   List<WishListItems> fetchWishList(String token);
-//
-//    String deleteBookFromWishList(UUID wishListId, String token);
-      WishList setWish(UserDetailsModel userDetailsModel);
+    List<WishListItems> fetchWishList(String token);
+    String deleteBookFromWishList(UUID wishListId, String token);
+    WishList setWish(UserDetailsModel userDetailsModel);
 }

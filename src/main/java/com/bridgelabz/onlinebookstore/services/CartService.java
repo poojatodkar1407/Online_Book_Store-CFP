@@ -125,6 +125,7 @@ public class CartService implements ICartService {
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
 
         bookById.setAdded(false);
+        bookRepository.save(bookById);
         bookCartRepository.deleteById(findbookById.get().BookCartDetailsId);
 
 

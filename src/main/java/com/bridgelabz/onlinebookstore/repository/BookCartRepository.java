@@ -22,7 +22,7 @@ public interface BookCartRepository extends JpaRepository<BookCartDetails, UUID>
 
    @Query(nativeQuery = true,value = "select * from{h-schema} book_cart_details where cart_details_id = :cartDetailsId and order_status =false")
    List<BookCartDetails> getCartItems(UUID cartDetailsId);
-  List<BookCartDetails> findByCartDetailsCartIdAndOrderStatusIsFalse(UUID cartDetailsId);
+   List<BookCartDetails> findByCartDetailsCartIdAndOrderStatusIsFalse(UUID cartDetailsId);
 
    List<BookCartDetails> findByCartDetails(CartDetails cartDetails);
 
@@ -36,4 +36,3 @@ public interface BookCartRepository extends JpaRepository<BookCartDetails, UUID>
    List<BookCartDetails> findBookCartDetailsByOrderDetails(OderDetailsModel oderDetailsModel);
 
 }
-
