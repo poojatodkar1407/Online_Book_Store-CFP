@@ -58,6 +58,10 @@ public class CouponService implements ICouponService{
         UserDetailsModel user = userRepository.findById(userId).orElseThrow(() -> new CouponException("USER NOT FOUND"));
         Optional<Coupons> coupons = couponRepository.findByCouponsType(coupon);
 
+        if(!coupons.isPresent()){
+            throw new CouponException("COUPEN NOT FOUND");
+        }
+
         CouponsDetails couponsDetails = new CouponsDetails(coupons.get(), user);
         couponDetailsRepository.save(couponsDetails);
 
