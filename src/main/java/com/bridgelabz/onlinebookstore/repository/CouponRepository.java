@@ -11,4 +11,5 @@ import java.util.UUID;
 @Repository
 public interface CouponRepository extends JpaRepository<Coupons, UUID> {
     Optional<Coupons> findByCouponsType(String coupons);
+    Optional<Coupons> findByCouponsTypeAndAndMinimumPrice(String couponType, Double minimumPrice);
 }
