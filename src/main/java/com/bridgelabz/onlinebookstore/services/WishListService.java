@@ -100,11 +100,6 @@ public class WishListService implements IWishListService {
         UUID userId = jwtToken.decodeJWT(token);
         WishList wishList = getWish(userId);
         List<WishListItems> wishListItemsList =wishListItemsRepository.findByWishListWishId(wishList.getWishId());
-
-
-
-
-
         return wishListItemsList;
     }
 
@@ -117,19 +112,15 @@ public class WishListService implements IWishListService {
             throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND);
         }
         Optional<WishListItems> wishListItems = wishListItemsRepository.findByBookBookId(bookId);
-               if(!wishListItems.isPresent()){
+        if(!wishListItems.isPresent()){
                    throw new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND);
-               }
-
+        }
         BookDetailsModel bookById = bookRepository.
                 findById(bookId).
                 orElseThrow(() -> new BookStoreException(BookStoreException.ExceptionTypes.BOOK_NOT_FOUND));
-
-         bookById.setAddedToWish(false);
-         bookRepository.save(bookById);
-
-         wishListItemsRepository.deleteById(wishListItems.get().getWishListItemsId());
-
+        bookById.setAddedToWish(false);
+        bookRepository.save(bookById);
+        wishListItemsRepository.deleteById(wishListItems.get().getWishListItemsId());
         return "Book deleted successfully";
       }
 }

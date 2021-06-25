@@ -24,4 +24,10 @@ public class BookStoreGlobalExceptionHandler {
         return new ResponseEntity<ResponseDto>(new ResponseDto(userException.exceptionType.error, null,null),HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CouponException.class)
+    public ResponseEntity<ResponseDto> CouponExceptionHandler(CouponException couponException) {
+        log.error("Exception Occurred : " +couponException.exceptionType.error);
+        return new ResponseEntity<ResponseDto>(new ResponseDto(couponException.exceptionType.error, "400",null),HttpStatus.BAD_REQUEST);
+    }
+
 }

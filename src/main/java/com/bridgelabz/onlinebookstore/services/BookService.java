@@ -63,7 +63,6 @@ public class BookService implements IBookService{
 
          Collections.reverse(bookDetail);
          return bookDetail;
-
     }
 
     @Override
@@ -74,7 +73,6 @@ public class BookService implements IBookService{
      Collections.reverse(bookDetailsModelList);
      return bookDetailsModelList;
 
-
     }
 
     @Override
@@ -82,6 +80,5 @@ public class BookService implements IBookService{
         List<BookDetailsModel> totalBooks = bookRepository.findAll();
         return totalBooks.size();
     }
-
 
 }

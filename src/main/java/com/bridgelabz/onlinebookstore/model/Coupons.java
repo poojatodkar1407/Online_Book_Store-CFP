@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.model;
 
+import com.bridgelabz.onlinebookstore.dto.CouponDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,6 @@ public class Coupons implements Serializable {
     public List<CouponsDetails> couponsDetails;
 
 
-
     public Coupons(String couponsType, Double discountPrice, String description, String expireCouponDate, Double minimumPrice) {
         this.couponsType = couponsType;
         this.discountPrice = discountPrice;
@@ -47,4 +47,11 @@ public class Coupons implements Serializable {
     }
 
 
+    public Coupons(CouponDto couponDto) {
+        this.couponsType = couponDto.couponsType;
+        this.discountPrice = couponDto.discountPrice;
+        this.description = couponDto.description;
+        this.expireCouponDate = couponDto.expireCouponDate;
+        this.minimumPrice = couponDto.minimumPrice;
+    }
 }
