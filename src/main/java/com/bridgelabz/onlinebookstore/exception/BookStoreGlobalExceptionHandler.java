@@ -30,4 +30,11 @@ public class BookStoreGlobalExceptionHandler {
         return new ResponseEntity<ResponseDto>(new ResponseDto(couponException.exceptionType.error, "400",null),HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(AdminException.class)
+    public ResponseEntity<ResponseDto> AdminExceptionHandler(AdminException adminException) {
+        log.error("Exception Occurred : " +adminException.exceptionType.error);
+        return new ResponseEntity<ResponseDto>(new ResponseDto(adminException.exceptionType.error, "400",null),HttpStatus.BAD_REQUEST);
+    }
+
+
 }

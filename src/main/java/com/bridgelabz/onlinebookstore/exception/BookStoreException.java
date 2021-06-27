@@ -27,11 +27,7 @@ public class BookStoreException extends RuntimeException {
             this.errorMsg = errorMsg;
         }
 
-
     }
 
-    public BookStoreException(String message) {
-        super(message);
-
-    }
+    public BookStoreException(String message) { super(message); }
 }
