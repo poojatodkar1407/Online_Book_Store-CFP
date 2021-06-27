@@ -1,6 +1,7 @@
 package com.bridgelabz.onlinebookstore.services;
 
 import com.bridgelabz.onlinebookstore.dto.AdminLoginDto;
+import com.bridgelabz.onlinebookstore.exception.AdminException;
 import com.bridgelabz.onlinebookstore.exception.UserException;
 import com.bridgelabz.onlinebookstore.model.AdminDetailsModel;
 import com.bridgelabz.onlinebookstore.repository.AdminDetailsRepository;
@@ -26,17 +27,18 @@ public class AdminService implements IAdminService {
     public String adminLogin(AdminLoginDto adminLoginDto) {
         Optional<AdminDetailsModel> adminDetailsByEmail = adminDetailsRepository.findByEmailID(adminLoginDto.getEmailID());
         if (!adminDetailsByEmail.isPresent()) {
-            throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
+            throw new AdminException(AdminException.ExceptionType.INVALID_DATA);
         }
         if(adminDetailsByEmail.get().isVerified){
             boolean password = bCryptPasswordEncoder.matches(adminLoginDto.password, adminDetailsByEmail.get().password);
             if (!password) {
-                throw new UserException(UserException.ExceptionType.PASSWORD_INVALID);
+                throw new AdminException(AdminException.ExceptionType.PASSWORD_INVALID);
             }
             String token = jwtToken.generateAdminLoginToken(adminDetailsByEmail.get());
             return token;
         }
-
-        throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
+        throw new AdminException(AdminException.ExceptionType.EMAIL_NOT_FOUND);
     }
+
+
 }
