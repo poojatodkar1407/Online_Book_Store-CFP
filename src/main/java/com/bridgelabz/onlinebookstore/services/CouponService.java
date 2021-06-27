@@ -55,16 +55,20 @@ public class CouponService implements ICouponService{
     public List<Coupons> fetchCoupon(String token,Double totalPrice) {
         UUID userId = jwtToken.decodeJWT(token);
         List<Coupons> coupons = couponRepository.findAll();
+        System.out.println("the array in the coupens "+coupons.toString());
         List<Coupons> couponsList = new ArrayList<>();
         for (Coupons coupons1 : coupons) {
             if (coupons1.minimumPrice <= totalPrice) {
                 couponsList.add(coupons1);
             }
         }
+        System.out.println("the array "+couponsList);
         List<CouponsDetails> couponsDetails = couponDetailsRepository.findByUser_UserId(userId);
+        System.out.println("the array in the cod "+couponsDetails);
         for (CouponsDetails couponDetails1 : couponsDetails) {
             couponsList.remove(couponDetails1.coupons);
         }
+        System.out.println("the array "+couponsList);
         if (coupons.isEmpty() || couponsList.isEmpty())
             throw new CouponException(CouponException.ExceptionType.COUPON_NOT_AVAILABLE);
         return couponsList;

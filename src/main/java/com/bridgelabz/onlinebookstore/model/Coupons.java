@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-
+@ToString
 @Entity
 @Getter
 @Setter
