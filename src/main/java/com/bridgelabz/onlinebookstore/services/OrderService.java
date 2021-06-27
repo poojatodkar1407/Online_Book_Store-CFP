@@ -55,10 +55,6 @@ public class OrderService implements IOrderService{
             cartBook.setOrderStatus(true);
 
             bookRepository.updateStock(cartBook.getQuantity(),cartBook.getBookDetailsModel().bookId);
-
-//
-
-
         });
 
         cartBooks.forEach(cartBook -> {
@@ -73,12 +69,7 @@ public class OrderService implements IOrderService{
             bookRepository.save(searchBook);
 
         });
-
-
-
-         bookCartRepository.updateOrderPlacedStatus(cartDetails.getCartId());
-
-
+        bookCartRepository.updateOrderPlacedStatus(cartDetails.getCartId());
         return "hurray !!! your order of order id "+saveOrder.getOrderId()+ "is successfull";
     }
 

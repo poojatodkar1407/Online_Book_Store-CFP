@@ -11,8 +11,9 @@ public class UserException extends RuntimeException {
     public enum ExceptionType {
         EMAIL_NOT_FOUND("Enter Registered Email"),
         PASSWORD_INVALID("Invalid Password!!!Please Enter Correct Password"),
-        INVALID_DATA("Please verify your email before proceeding");
 
+        INVALID_DATA("Please verify your email before proceeding"),
+        USER_NOT_FOUND("user not found");
 
         public String error;
 

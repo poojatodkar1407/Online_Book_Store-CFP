@@ -1,5 +1,7 @@
 package com.bridgelabz.onlinebookstore.controller;
 
+
+import com.bridgelabz.onlinebookstore.dto.CouponDto;
 import com.bridgelabz.onlinebookstore.dto.ResponseDto;
 import com.bridgelabz.onlinebookstore.model.Coupons;
 import com.bridgelabz.onlinebookstore.services.ICouponService;
@@ -8,9 +10,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +25,21 @@ public class CouponController {
     @Autowired
     ICouponService couponService;
 
-    @GetMapping("/fetchOrder")
+
+    @PostMapping("/addCoupons")
+    public ResponseEntity<ResponseDto> addCouponsToDatabase(@RequestBody @Valid CouponDto couponDto, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<ResponseDto>(new ResponseDto(bindingResult.getAllErrors().get(0).
+                    getDefaultMessage(),"100",null),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Coupons coupons = couponService.addCouponsToDatabase(couponDto);
+                return new ResponseEntity (new ResponseDto("COUPONS ADDED SUCCESFULLY : ",
+                "200",coupons),
+                HttpStatus.CREATED);
+    }
+
+    @GetMapping("/fetchOrderCoupon")
     public ResponseEntity fetchOrderCoupon(@RequestHeader(value = "token") String token, @RequestParam(name = "totalPrice") Double totalPrice) {
         List<Coupons> orders = couponService.fetchCoupon(token,totalPrice);
         ResponseDto response = new ResponseDto("Coupons Fetched Successfully", orders);
