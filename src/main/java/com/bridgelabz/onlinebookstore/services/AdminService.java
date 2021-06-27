@@ -23,7 +23,7 @@ public class AdminService implements IAdminService {
     Token jwtToken = new Token();
 
     @Override
-    public String adminLogin(AdminLoginDto adminLoginDto) {
+    public AdminDetailsModel adminLogin(AdminLoginDto adminLoginDto) {
         Optional<AdminDetailsModel> adminDetailsByEmail = adminDetailsRepository.findByEmailID(adminLoginDto.getEmailID());
         if (!adminDetailsByEmail.isPresent()) {
             throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
@@ -34,7 +34,7 @@ public class AdminService implements IAdminService {
                 throw new UserException(UserException.ExceptionType.PASSWORD_INVALID);
             }
             String token = jwtToken.generateAdminLoginToken(adminDetailsByEmail.get());
-            return token;
+            return adminDetailsByEmail.get();
         }
 
         throw new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND);
