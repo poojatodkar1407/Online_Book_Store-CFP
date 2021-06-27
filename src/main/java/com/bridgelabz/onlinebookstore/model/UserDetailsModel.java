@@ -1,9 +1,12 @@
 package com.bridgelabz.onlinebookstore.model;
 
 
+import com.bridgelabz.onlinebookstore.dto.AdminDetailsDto;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
 
+import com.bridgelabz.onlinebookstore.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -35,6 +38,8 @@ public class UserDetailsModel{
     public boolean isVerified;
     public LocalDateTime createdAt = LocalDateTime.now();
     public LocalDateTime updatedAt;
+
+
 
 
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
@@ -83,5 +88,6 @@ public class UserDetailsModel{
         this.password = loginDto.password;
 
     }
+
 
 }

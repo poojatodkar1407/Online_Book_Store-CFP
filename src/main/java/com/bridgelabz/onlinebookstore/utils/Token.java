@@ -1,5 +1,6 @@
 package com.bridgelabz.onlinebookstore.utils;
 
+import com.bridgelabz.onlinebookstore.model.AdminDetailsModel;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,17 @@ public class Token {
                     .compact();
         }
 
+    public String generateAdminLoginToken(AdminDetailsModel adminDetailsModel) {
+        long currentTime = System.currentTimeMillis();
+
+        return Jwts.builder()
+                .setId(String.valueOf(adminDetailsModel.adminId))
+                .setSubject(adminDetailsModel.fullName)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(currentTime + 100000000))
+                .signWith(SignatureAlgorithm.HS256, "sd5745FAHFW")
+                .compact();
+    }
         public String generateVerificationToken(UserDetailsModel userDetails) {
 
             long currentTime = System.currentTimeMillis();
@@ -49,6 +61,7 @@ public class Token {
                 throw new JwtException("session time out");
             }
         }
+
 
 }
 

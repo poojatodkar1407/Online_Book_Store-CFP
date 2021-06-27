@@ -13,6 +13,7 @@ public class UserException extends RuntimeException {
         PASSWORD_INVALID("Invalid Password!!!Please Enter Correct Password"),
         INVALID_DATA("Please verify your email before proceeding");
 
+
         public String error;
 
         ExceptionType(String errorMsg) {
