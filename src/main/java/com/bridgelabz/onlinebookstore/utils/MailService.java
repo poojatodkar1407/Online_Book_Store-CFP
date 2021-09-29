@@ -15,6 +15,9 @@ public class MailService {
     JavaMailSender javaMailSender;
 
     public void sendMail(String body,String subject,String emailID) throws MessagingException {
+        System.out.println("request came to email sending");
+
+
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

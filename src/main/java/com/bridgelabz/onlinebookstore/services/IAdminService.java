@@ -2,9 +2,13 @@ package com.bridgelabz.onlinebookstore.services;
 
 import com.bridgelabz.onlinebookstore.dto.AdminDetailsDto;
 import com.bridgelabz.onlinebookstore.dto.AdminLoginDto;
+import com.bridgelabz.onlinebookstore.dto.UploadFile;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import com.bridgelabz.onlinebookstore.model.AdminDetailsModel;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IAdminService {
     AdminDetailsModel adminLogin(AdminLoginDto adminLoginDto);
+
+    UploadFile storeFile(MultipartFile file);
 }

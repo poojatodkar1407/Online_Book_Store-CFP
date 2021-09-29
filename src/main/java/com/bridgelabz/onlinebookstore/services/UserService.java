@@ -4,6 +4,7 @@ import com.bridgelabz.onlinebookstore.dto.UserDetailsDto;
 import com.bridgelabz.onlinebookstore.dto.UserLoginDto;
 import com.bridgelabz.onlinebookstore.exception.BookStoreException;
 import com.bridgelabz.onlinebookstore.exception.UserException;
+import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.model.UserDetailsModel;
 import com.bridgelabz.onlinebookstore.repository.UserDetailsRepository;
 import com.bridgelabz.onlinebookstore.utils.MailService;
@@ -53,15 +54,16 @@ public class UserService implements IUserService {
                                                                   password);
         UserDetailsModel saveDetails = userDetailsRepository.save(userDetailsModel);
         String tokenId = jwtToken.generateVerificationToken(userDetailsModel);
-        String requestUrl ="http://localhost:3000/verify/"+tokenId;
+        String requestUrl ="http://localhost:4200/#/verifyuserReg/"+tokenId;
+
         System.out.println("token from registration is "+tokenId);
         try {
-            mailService.sendMail(requestUrl,"the verification link is ",userDetailsModel.getEmailID());
+            System.out.println(requestUrl);
+            mailService.sendMail(requestUrl,"the verification link is send to ",userDetailsModel.getEmailID());
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        cartService.setCart(userDetailsModel);
-        wishListService.setWish(userDetailsModel);
+
 
         return saveDetails;
     }
@@ -80,7 +82,8 @@ public class UserService implements IUserService {
         userId.get().isVerified=true;
         userId.get().updatedAt= LocalDateTime.now();
         userDetailsRepository.save(userId.get());
-
+        cartService.setCart(userId.get());
+        wishListService.setWish(userId.get());
 
     }
 
@@ -113,7 +116,7 @@ public class UserService implements IUserService {
         UserDetailsModel user = userDetailsRepository.findByEmailID(email).orElseThrow(() -> new UserException(UserException.ExceptionType.EMAIL_NOT_FOUND));
         String tokenGenerate = jwtToken.generateVerificationToken(user);
         String urlToken = "Click on below link to Reset your Password \n"
-                + "http://localhost:3000/reset/" + tokenGenerate;
+                + "http://localhost:4200/resetpassword/" + tokenGenerate;
         mailService.sendMail(urlToken, "Reset Password", user.emailID);
         return "Reset Password Link Has Been Sent To Your Email Address";
     }

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -29,16 +30,24 @@ public class AdminController {
     Token jwtToken = new Token();
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> adminLogin (HttpServletResponse httpServletResponse, @Valid @RequestBody AdminLoginDto adminLoginDto, BindingResult bindingResult){
-        if(bindingResult.hasErrors()) {
-            return new ResponseEntity(bindingResult.getAllErrors().get(0).getDefaultMessage(),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ResponseDto> adminLogin(HttpServletResponse httpServletResponse, @Valid @RequestBody AdminLoginDto adminLoginDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(bindingResult.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST);
         }
-        AdminDetailsModel adminLogin= adminService.adminLogin(adminLoginDto);
+        AdminDetailsModel adminLogin = adminService.adminLogin(adminLoginDto);
         String token = jwtToken.generateAdminLoginToken(adminLogin);
-        httpServletResponse.setHeader("Authorization",token);
-        return new ResponseEntity (new ResponseDto("LOGIN SUCCESSFUL",
-                "200",token,adminLogin.getFullName()),
+        httpServletResponse.setHeader("Authorization", token);
+        return new ResponseEntity(new ResponseDto("LOGIN SUCCESSFUL",
+                "200", token, adminLogin.getFullName()),
                 HttpStatus.OK);
     }
 
+
+    @PostMapping("/books/image")
+    public UploadFile uploadFile(@RequestParam("file") MultipartFile file) {
+        UploadFile fileResponse = adminService.storeFile(file);
+        return fileResponse;
+
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.bridgelabz.onlinebookstore.services;
 
 import com.bridgelabz.onlinebookstore.dto.AdminLoginDto;
+import com.bridgelabz.onlinebookstore.dto.UploadFile;
 import com.bridgelabz.onlinebookstore.exception.AdminException;
 import com.bridgelabz.onlinebookstore.exception.UserException;
 import com.bridgelabz.onlinebookstore.model.AdminDetailsModel;
@@ -9,6 +10,7 @@ import com.bridgelabz.onlinebookstore.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -38,6 +40,11 @@ public class AdminService implements IAdminService {
             return adminDetailsByEmail.get();
         }
         throw new AdminException(AdminException.ExceptionType.EMAIL_NOT_FOUND);
+    }
+
+    @Override
+    public UploadFile storeFile(MultipartFile file) {
+        return null;
     }
 
 
